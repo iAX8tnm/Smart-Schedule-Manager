@@ -1,4 +1,3 @@
-
 import requests
 import time
 import hashlib
@@ -16,7 +15,7 @@ SCENE = "main"
 RESULT_LEVEL = "complete"
 LAT = "39.938838"
 LNG = "116.368624"
-#个性化参数，需转义
+
 PERS_PARAM = "{\\\"auth_id\\\":\\\"2894c985bf8b1111c6728db79d3479ae\\\"}"
 FILE_PATH = "audio/test.wav"
 
@@ -24,8 +23,6 @@ FILE_PATH = "audio/test.wav"
 def buildHeader():
     curTime = str(int(time.time()))
     param = "{\"result_level\":\""+RESULT_LEVEL+"\",\"auth_id\":\""+AUTH_ID+"\",\"data_type\":\""+DATA_TYPE+"\",\"sample_rate\":\""+SAMPLE_RATE+"\",\"scene\":\""+SCENE+"\",\"lat\":\""+LAT+"\",\"lng\":\""+LNG+"\"}"
-    #使用个性化参数时参数格式如下：
-    #param = "{\"result_level\":\""+RESULT_LEVEL+"\",\"auth_id\":\""+AUTH_ID+"\",\"data_type\":\""+DATA_TYPE+"\",\"sample_rate\":\""+SAMPLE_RATE+"\",\"scene\":\""+SCENE+"\",\"lat\":\""+LAT+"\",\"lng\":\""+LNG+"\",\"pers_param\":\""+PERS_PARAM+"\"}"
     paramBase64 = base64.b64encode(bytes(param, encoding = "utf8"))
 
     m2 = hashlib.md5()
@@ -45,10 +42,32 @@ def readFile(filePath):
     data = binfile.read()
     return data
 
-r = requests.post(URL, headers=buildHeader(), data=readFile(FILE_PATH))
-f = open('json/result.json','w')
+def request_web():
+    r = requests.post(URL, headers=buildHeader(), data=readFile(FILE_PATH))
+    r = str(r.content, encoding = "utf8")
+    return r
 
-f.write(str(r.content, encoding = "utf8"))
-f.close()
-r = str(r.content, encoding = "utf8")
-print(r)
+def parse_response(r):
+    f = open('json/result.json','w')
+    f.write(r)
+    f.close()
+    j = json.loads(r)
+    if j["desc"] == "success":
+        parse_data(j)
+
+def parse_data(j):
+    data = j["data"]
+    #this "data" is a list, we need to check 
+    #which list item is we want
+    for i in data:
+        if i["sub"] == "nlp":  #check if is nlp
+            j = i["intent"]
+            if (len(j) != 0):  #check if this intent is empty
+                intent = j
+                semantic = intent["semantic"]
+                semantic = semantic[0]
+                slots = semantic["slots"]
+                time = slots[0]
+                time_norm_value = time["normValue"]
+                print(time_norm_value)
+            

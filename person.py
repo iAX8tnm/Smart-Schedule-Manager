@@ -1,13 +1,16 @@
 class Person:
-    def __iniT__(self, personID,):
+    def __init__(self, personID):
         self.personID = personID
         self.scheduleList = []
-    
+
+    def ret_id(self):
+        return self.personID
+
     def query_schedule(self, time):
-        return 
+        return True
     
     def delete_schedule(self, time):
-        return time
+        return True
 
     def add_schedule(self, time, event):
         return True
