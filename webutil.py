@@ -72,17 +72,16 @@ def parse_data(j):
                 answer = intent["answer"]   
                 answer = answer["text"]  #js写的回答，need to be returned
 
-                #提取
                 semantic = intent["semantic"]
                 semantic = semantic[0]
 
                 #intent
                 intent = semantic["intent"]  #这个是具体的intent，need to be returned 
 
-                #提取
                 slots = semantic["slots"]
+
+                #大概从住这里开始封装不同意图具体的处理函数
                 time = slots[0]    #第零项就是time的语义槽(可能也不是，后期要改)，这里直接提取
-                
                 #time
                 time = time["normValue"]
                 datetime = time[time.index("datetime"):time.index(",\"suggestDatetime")]
