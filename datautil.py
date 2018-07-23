@@ -5,7 +5,7 @@ import json
 
 
 def parse_response(r):
-    f = open('json/result.json','w')
+    f = open('json/result.json','w') #要用try...
     f.write(r)
     f.close()
     j = json.loads(r)
