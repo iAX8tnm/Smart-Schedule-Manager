@@ -96,6 +96,9 @@ def get_thing(slots):
 #           last = meddle
 #       ......
 #       主要是比较字符串吧
+#       
+#       另外，由于querry_schedule要返回的是一个范围时间的日程（不同与添加，即使说是下午但是人可以 指定为13点钟提醒）
+#       所以，这个函数应该用datetime判断
 # #
 def compare_time():
     return True
