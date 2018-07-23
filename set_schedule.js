@@ -21,12 +21,11 @@ function add_schedule_without_time() {
     response.speak('好的，请问什么时候提醒您' + event.session.properties.thing);
 }
 
-function time() {  //所以他好像没什么用
-    if (event.session.properties.time != null) { // 这个条件也是直接为true
+function time() { 
+    if (event.session.properties.thing != null) { //判断一下是不是直接说了个时间，防止没有thing就回答了
         add_schedule_with_time()
-    } else {//这个else 应该不会进去，可删
-        response.speak('请问您想查询什么时候的行程？');
-        console.log('3333333333')
+    } else {
+        response.error('Ooooops something wrong', event);
     }
 }
 
@@ -35,7 +34,7 @@ if (eventName == 'add_schedule_with_time') {
 } else if (eventName == 'add_schedule_without_time') {
     add_schedule_without_time();
 } else if (eventName == 'time') {
-    add_schedule_with_time();
+    time();
 } else {
     Response.error('Ooooops something wrong', event)
 }
