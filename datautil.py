@@ -82,3 +82,19 @@ def get_thing(slots):
         if i["name"] == "thing":
             thing = i["normValue"]
     return thing
+
+#
+# 比较为字符串的时间，因为实在是没有办法，询问日程，添加日程都可能只是说一个时间段而不是那个钟点
+# 假如为Schedule类添加一个index的话，在添加插入类的日程就要全改后面的数据，所以很不方便
+# 考虑直接字符串比较，并且采用二分查找
+#       根据当前请求的time，与scheduleList中间项的time比较
+#       if querry.time > meddle.time:
+#           first = meddle
+#       elif querry.time == meddle.time:
+#           return meddle+1
+#       elif querry.time < meddle.time:
+#           last = meddle
+#       ......
+# #
+def compare_time():
+    return True

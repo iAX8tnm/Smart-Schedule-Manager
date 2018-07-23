@@ -1,7 +1,13 @@
 class Schedule:
-    def __init__(self, time, event):
+    def __init__(self, time, thing):
         self.time = time
-        self.event = event
+        self.thing = thing
+    
+    def compare(self, time):
+        return True
 
-    #def compare(self, time):
-  
+    def get_time(self):
+        return self.time
+    
+    def get_thing(self):
+        return self.thing
