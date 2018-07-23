@@ -1,4 +1,4 @@
-class schedule:
+class Schedule:
     def __init__(self, time, event):
         self.time = time
         self.event = event

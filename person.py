@@ -12,5 +12,5 @@ class Person:
     def delete_schedule(self, time):
         return True
 
-    def add_schedule(self, time, event):
+    def add_schedule(self, event):
         return True
