@@ -14,8 +14,7 @@ def parse_response(r):
 
 def parse_data(j):
     data = j["data"]
-    #this "data" is a list, we need to check 
-    #which list item is we want
+    
     for i in data:
         if i["sub"] == "nlp":  #check if is nlp
             j = i["intent"]
@@ -25,6 +24,8 @@ def parse_data(j):
                 #sessionIsEnd
                 sessionIsEnd = intent["sessionIsEnd"]  #need to be returned
                 
+                #category
+                category = intent["category"]
                 #answer
                 answer = intent["answer"]   
                 answer = answer["text"]  #js写的回答，need to be returned
@@ -33,32 +34,30 @@ def parse_data(j):
                 semantic = semantic[0]
 
                 #intent
-                intent = semantic["intent"]  #这个是具体的intent，need to be returned 
+                intent = semantic["intent"]  
 
                 slots = semantic["slots"]
 
                 #判断意图intent
-                if intent == "query_schedule_with_time":
+                if intent == "query_schedule_with_time":         #判断时间，然后显示日程
                     get_time(slots)
-                elif intent == "query_schedule_without_time":
-                    get_time(slots)
-                elif intent == "add_schedule_with_time":
-                    get_time(slots)   #这个应该是不用get什么东西了，，
-                elif intent == "add_schedule_without_time":
-                    get_thing(slots)
-                elif intent == "time":   #要处理和time的各种关系
-                    get_time(slots)
+                elif intent == "query_schedule_without_time":    #再次提问
+                    get_time(slots)                                    
+                elif intent == "add_schedule_with_time":         #直接添加新的日程
+                    get_time(slots)   
+                elif intent == "add_schedule_without_time":      #保存thing,再次提问
+                    thing = get_thing(slots)                           
+                elif intent == "time":   
+                    if category == "MUMUMUSHI.schedule":         #判断时间，然后显示日程
+                        get_time(slots)
+                    elif category == "MUMUMUSHI.set_schedule_2": #添加新日程跟上一个thing
+                        get_time(slots)
                 else:
                     print("something wrong!")
                 
                 print(answer)
 
 
-#最重要的是什么？answer_text，具体的intent，sessionIsEnd
-#answer_text用于返回去显示或者读出来
-#intent才知道当前录音的意图是什么
-#sessionIsEnd才知道当前对话时候已经结束，但是假设我已经知道了intent的话，我是可以知道是否还需要继续对话的，所以，可以把他们一起判断
-#但根据我们的intent，我们才知道要怎么提取数据，所以，根据不同的intent，调用不同的具体的处理函数~(￣▽￣)~*
 
 def get_time(slots):
     time = slots[0]    #第零项就是time的语义槽(可能也不是，后期要改)，这里直接提取
