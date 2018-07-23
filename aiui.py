@@ -1,5 +1,6 @@
-from webutil import *
+from webutil import request_web
 from person import Person
+from datautil import parse_response
 
 p1 = Person(0)
 
