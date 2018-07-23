@@ -95,6 +95,7 @@ def get_thing(slots):
 #       elif querry.time < meddle.time:
 #           last = meddle
 #       ......
+#       主要是比较字符串吧
 # #
 def compare_time():
     return True
