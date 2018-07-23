@@ -3,7 +3,9 @@
 # #
 import json
 
-
+#
+# 保存返回结果，并判断请求时候成功
+# #
 def parse_response(r):
     f = open('json/result.json','w') #要用try...
     f.write(r)
@@ -12,6 +14,9 @@ def parse_response(r):
     if j["desc"] == "success":
         parse_data(j)
 
+#
+# 粗提取数据并选择下一步对应的操作
+# #
 def parse_data(j):
     data = j["data"]
     
@@ -21,14 +26,11 @@ def parse_data(j):
             if (len(j) != 0):  #check if this intent is empty
                 intent = j
                 
-                #sessionIsEnd
-                sessionIsEnd = intent["sessionIsEnd"]  #need to be returned
-                
                 #category
                 category = intent["category"]
                 #answer
                 answer = intent["answer"]   
-                answer = answer["text"]  #js写的回答，need to be returned
+                answer = answer["text"]         #js写的回答，need to be returned
 
                 semantic = intent["semantic"]
                 semantic = semantic[0]
@@ -45,12 +47,12 @@ def parse_data(j):
                     get_time(slots)                                    
                 elif intent == "add_schedule_with_time":         #直接添加新的日程
                     get_time(slots)   
-                elif intent == "add_schedule_without_time":      #保存thing,再次提问
+                elif intent == "add_schedule_without_time":      #添加只有thing的日程，时间为None,再次提问
                     thing = get_thing(slots)                           
                 elif intent == "time":   
                     if category == "MUMUMUSHI.schedule":         #判断时间，然后显示日程
                         get_time(slots)
-                    elif category == "MUMUMUSHI.set_schedule_2": #添加新日程跟上一个thing
+                    elif category == "MUMUMUSHI.set_schedule_2": #找到上次那个只有thing的日程，加上时间
                         get_time(slots)
                 else:
                     print("something wrong!")
@@ -58,17 +60,23 @@ def parse_data(j):
                 print(answer)
 
 
-
+#
+# 提取返回结果的time
+# #
 def get_time(slots):
-    time = slots[0]    #第零项就是time的语义槽(可能也不是，后期要改)，这里直接提取
+    time = slots[0]    #第0项就是time的语义槽(可能也不是，后期要改)，这里直接提取
     #time
     time = time["normValue"]
     datetime = time[time.index("datetime"):time.index(",\"suggestDatetime")]
     suggestDatetime = time[time.index("suggestDatetime"):time.index("}")]
-    #print(datetime)   #提取出来的两个时间
-    #print(suggestDatetime)   #need to be returned
+    #print(datetime)       
+    #print(suggestDatetime)   
+    return datetime, suggestDatetime
 
-def get_thing(slots):
+#
+# 提取返回结果的thing
+# #
+def get_thing(slots):  
     thing = None
     for i in slots:
         if i["name"] == "thing":
