@@ -37,17 +37,21 @@ def parse_data(j):
 
                 slots = semantic["slots"]
 
-                #大概从住这里开始封装不同意图具体的处理函数
-                time = slots[0]    #第零项就是time的语义槽(可能也不是，后期要改)，这里直接提取
-                #time
-                time = time["normValue"]
-                datetime = time[time.index("datetime"):time.index(",\"suggestDatetime")]
-                suggestDatetime = time[time.index("suggestDatetime"):time.index("}")]
-                print(datetime)   #提取出来的两个时间
-                print(suggestDatetime)   #need to be returned
-
-               
-    return 
+                #判断意图intent
+                if intent == "query_schedule_with_time":
+                    get_time(slots)
+                elif intent == "query_schedule_without_time":
+                    get_time(slots)
+                elif intent == "add_schedule_with_time":
+                    get_time(slots)   #这个应该是不用get什么东西了，，
+                elif intent == "add_schedule_without_time":
+                    get_thing(slots)
+                elif intent == "time":   #要处理和time的各种关系
+                    get_time(slots)
+                else:
+                    print("something wrong!")
+                
+                print(answer)
 
 
 #最重要的是什么？answer_text，具体的intent，sessionIsEnd
@@ -55,3 +59,19 @@ def parse_data(j):
 #intent才知道当前录音的意图是什么
 #sessionIsEnd才知道当前对话时候已经结束，但是假设我已经知道了intent的话，我是可以知道是否还需要继续对话的，所以，可以把他们一起判断
 #但根据我们的intent，我们才知道要怎么提取数据，所以，根据不同的intent，调用不同的具体的处理函数~(￣▽￣)~*
+
+def get_time(slots):
+    time = slots[0]    #第零项就是time的语义槽(可能也不是，后期要改)，这里直接提取
+    #time
+    time = time["normValue"]
+    datetime = time[time.index("datetime"):time.index(",\"suggestDatetime")]
+    suggestDatetime = time[time.index("suggestDatetime"):time.index("}")]
+    #print(datetime)   #提取出来的两个时间
+    #print(suggestDatetime)   #need to be returned
+
+def get_thing(slots):
+    thing = None
+    for i in slots:
+        if i["name"] == "thing":
+            thing = i["normValue"]
+    return thing
