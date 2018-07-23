@@ -1,7 +1,6 @@
-# Byte-compiled / optimized / DLL files
+# useless dir
 __pycache__/
-
-#
 .vscode/
 json/
+# test program
 test.py
