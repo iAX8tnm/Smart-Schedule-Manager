@@ -17,7 +17,7 @@ LAT = "23.2"
 LNG = "116.6"
 
 PERS_PARAM = "{\\\"auth_id\\\":\\\"2894c985bf8b1111c6728db79d3479ae\\\"}"
-FILE_PATH = "audio/time2.wav"
+FILE_PATH = "audio/query_schedule2.wav"
 
 
 def buildHeader():

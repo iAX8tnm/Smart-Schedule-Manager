@@ -27,3 +27,6 @@ value": "后天",
 
 value": "明天",
 "normValue": "{\"datetime\":\"2018-07-23\",\"suggestDatetime\":\"2018-07-23\"}"
+
+value": "六点钟",
+"normValue": "{\"datetime\":\"T06:00:00\",\"suggestDatetime\":\"2018-07-25T06:00:00\"}"
