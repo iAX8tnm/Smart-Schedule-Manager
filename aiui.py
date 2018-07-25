@@ -24,6 +24,5 @@ def start_recognition():
             pass
         else :
             print("Oooooops someting wrong!")
-    print(result)
 
 start_recognition()

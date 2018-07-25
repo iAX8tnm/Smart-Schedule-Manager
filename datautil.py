@@ -74,7 +74,7 @@ def get_time(slots):
     datetime = time[time.index("datetime")+11:time.index("\",\"suggestDatetime")]
     suggestDatetime = time[time.index("suggestDatetime")+18:time.index("\"}")]
 
-    #处理时间格式    
+    #处理时间格式                               #还有几种编码。。像凌晨，傍晚这些词。。
     n = len(datetime)
     if n == 13:                                #日期带一个上午，一个下午，或者一个晚上的格式
         time = datetime

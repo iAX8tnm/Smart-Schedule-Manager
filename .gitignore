@@ -4,3 +4,4 @@ __pycache__/
 json/
 # test program
 test.py
+buglist.txt

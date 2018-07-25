@@ -1,3 +1,10 @@
+"value": "明天凌晨"
+normValue": "{\"datetime\":\"2018-07-26TEAM\",\"suggestDatetime\":\"2018-07-26T01:00:00\"}"
+
+"value": "明天傍晚"
+"normValue": "{\"datetime\":\"2018-07-26TEV\",\"suggestDatetime\":\"2018-07-26T18:00:00\"}",
+
+
 "value": "今天上午的",
 "normValue": "{\"datetime\":\"2018-07-22TAM\",\"suggestDatetime\":\"2018-07-22T06:00:00\"}"
 
@@ -30,3 +37,5 @@ value": "明天",
 
 value": "六点钟",
 "normValue": "{\"datetime\":\"T06:00:00\",\"suggestDatetime\":\"2018-07-25T06:00:00\"}"
+
+
