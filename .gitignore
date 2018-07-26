@@ -1,7 +1,7 @@
 # useless dir
 __pycache__/
 .vscode/
-json/
+json/result.json
 # test program
 test.py
 buglist.txt
