@@ -45,6 +45,6 @@ def start_recognition(FILE_PATH):
                     print("Oooooops something wrong!")
         else :
             print("Oooooops someting wrong!")
-pass
+    pass
 
 start_recognition("audio/query_schedule_without_time.wav")
