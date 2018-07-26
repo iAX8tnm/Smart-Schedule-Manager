@@ -4,6 +4,7 @@ class Schedule:
     def __init__(self, time, thing):
         self.time = time
         self.thing = thing
+        self.timestamp = None
         if len(time) == 13:                         #格式为2018-01-01TAM  , PM,  NI,  TT
             if time[10:] == "TAM":
                 self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTAM')) + 21600
@@ -38,8 +39,8 @@ class Schedule:
     #       所以，这个函数应该用datetime判断
     # #
     def compareTo(self, that):
-        if self.timestamp < that.timestamp:
+        if self.get_timestamp() < that.get_timestamp():
             return -1
-        elif self.timestamp > that.timestamp:
+        elif self.get_timestamp() > that.get_timestamp():
             return 1
         return 0
