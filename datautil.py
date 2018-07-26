@@ -35,6 +35,9 @@ def parse_data(j):
                 answer = answer["text"]
                 result["answer"] = answer       #js写的回答，need to be returned
 
+                #category
+                result["category"]= intent["category"]
+                
                 semantic = intent["semantic"]
                 semantic = semantic[0]
 
@@ -106,5 +109,3 @@ def get_thing(slots):
         if i["name"] == "thing":
             thing = i["normValue"]
     return thing
-
-

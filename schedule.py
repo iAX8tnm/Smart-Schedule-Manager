@@ -5,6 +5,29 @@ class Schedule:
         self.time = time
         self.thing = thing
         self.timestamp = None
+        if time != None:
+            if len(time) == 13:                         #格式为2018-01-01TAM  , PM,  NI,  TT
+                if time[10:] == "TAM":
+                    self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTAM')) + 21600
+                elif time[10:] == "TPM":
+                    self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTPM')) + 46800
+                elif time[10:] == "TNI":
+                    self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTNI')) + 72000
+                elif time[10:] == "TTT":
+                    self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTTT')) + 21600
+            elif len(time) == 19:                       #格式为2018-01-01T09:00:00
+                self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dT%H:%M:%S'))
+            else :
+                print("Oooooops something wrong!")
+        else :
+            pass
+         
+
+    def get_time(self):
+        return self.time
+
+    def set_time(self, time):
+        self.time = time
         if len(time) == 13:                         #格式为2018-01-01TAM  , PM,  NI,  TT
             if time[10:] == "TAM":
                 self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTAM')) + 21600
@@ -18,13 +41,6 @@ class Schedule:
             self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dT%H:%M:%S'))
         else :
             print("Oooooops something wrong!")
-         
-    
-    def compare(self, time):
-        return True
-
-    def get_time(self):
-        return self.time
 
     def get_timestamp(self):
         return self.timestamp

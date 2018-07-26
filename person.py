@@ -4,6 +4,7 @@ class Person:
     def __init__(self, personID):
         self.personID = personID
         self.scheduleList = []
+        self.no_time_schedule = None
 
     def query_schedule(self, time):
         if len(time) == 13:                                                          #格式为2018-01-01TAM  , PM,  NI,  TT
@@ -39,10 +40,15 @@ class Person:
     # #
     def add_schedule(self, time, thing):
         schedule = Schedule(time, thing)
-        return self.insert_schedule(schedule)
+        self.insert_schedule(schedule)
 
     def add_schedule_without_time(self, thing):
-        return True
+        self.no_time_schedule = Schedule(None, thing)
+
+    def add_time_to_schedule(self, time):
+        self.no_time_schedule.set_time(time)
+        self.insert_schedule(self.no_time_schedule)
+        self.no_time_schedule = None
     
     def get_id(self):
         return self.personID
