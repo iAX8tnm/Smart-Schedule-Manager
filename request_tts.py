@@ -37,6 +37,9 @@ def writeFile(file, content):
         f.write(content)
     f.close()
 
+
+# 供外部调用把参数text转成语音，并存在audio/下， 以返回的sid作为文件名
+# #
 def request_tts(text):
     r = requests.post(URL,headers=getHeader(),data=getBody(text))
     contentType = r.headers['Content-Type']
