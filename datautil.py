@@ -4,6 +4,7 @@
 import json
 import time as T
 from request_tts import request_tts
+import threading
 
 #
 # 保存返回结果，并判断请求时候成功，返回result字典
@@ -35,6 +36,9 @@ def parse_data(j):
                 answer = intent["answer"]   
                 answer = answer["text"]
                 result["answer"] = answer       #js写的回答，need to be returned
+                #获取到答案之后迅速在另一个线程中请求tts
+                task = threading.Thread(target=request_tts, args=(answer,))
+                task.start()
 
                 #category
                 result["category"]= intent["category"]
@@ -64,7 +68,6 @@ def parse_data(j):
                     print("something wrong!")
                 
                 print(answer)
-                request_tts(answer)
                 
     return result
 
