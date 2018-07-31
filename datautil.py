@@ -3,6 +3,7 @@
 # #
 import json
 import time as T
+from request_tts import request_tts
 
 #
 # 保存返回结果，并判断请求时候成功，返回result字典
@@ -63,6 +64,8 @@ def parse_data(j):
                     print("something wrong!")
                 
                 print(answer)
+                request_tts(answer)
+                
     return result
 
 
