@@ -1,4 +1,4 @@
-from webutil import request_web
+from request_nlp import request_nlp
 from person import Person
 from datautil import parse_response
 #因为讯飞的云函数的技能可能经常变，所以定了接口
@@ -19,7 +19,7 @@ curUser.add_schedule("2018-08-01T12:30:00", "去买东西")
 # 录音后网络请求，处理数据
 # #
 def start_recognition(FILE_PATH):
-    r = request_web(FILE_PATH)
+    r = request_nlp(FILE_PATH)
     result = parse_response(r)   #应返回intent类型以便调用不同的处理函数
     r = None
     if "intent" in result:

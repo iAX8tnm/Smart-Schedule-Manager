@@ -42,7 +42,7 @@ def readFile(filePath):
     data = binfile.read()
     return data
 
-def request_web(FILE_PATH):
+def request_nlp(FILE_PATH):
     r = requests.post(URL, headers=buildHeader(), data=readFile(FILE_PATH))
     r = str(r.content, encoding = "utf8")
     return r
