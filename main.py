@@ -2,8 +2,8 @@ from request_nlp import request_nlp
 from person import Person
 from datautil import parse_response
 #因为讯飞的云函数的技能可能经常变，所以定了接口
-QUERY_CATEGORY = "MUMUMUSHI.schedule"
-ADD_CATEGORY = "MUMUMUSHI.set_schedule_2"
+QUERY_SERVICE = "MUMUMUSHI.schedule"
+ADD_SERVICE = "MUMUMUSHI.set_schedule_2"
 
 
 curUser = Person(0)  #0号人物为当前用户
@@ -37,9 +37,9 @@ def start_recognition(FILE_PATH):
                 start_recognition("audio/time2.wav")
         elif result["intent"] == "time":                                        #获得时间，检查是查询还是添加
             if "time" in result:
-                if result["category"] == QUERY_CATEGORY:
+                if result["service"] == QUERY_SERVICE:
                     r = curUser.query_schedule(result["time"])
-                elif result["category"] == ADD_CATEGORY:
+                elif result["service"] == ADD_SERVICE:
                     curUser.add_time_to_schedule(result["time"])
                 else :
                     print("Oooooops something wrong!")
@@ -47,4 +47,4 @@ def start_recognition(FILE_PATH):
             print("Oooooops someting wrong!")
     pass
 
-start_recognition("audio/query_schedule_without_time.wav")
+start_recognition("audio/query_schedule1.wav")

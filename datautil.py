@@ -40,8 +40,8 @@ def parse_data(j):
                 task = threading.Thread(target=request_tts, args=(answer,))
                 task.start()
 
-                #category
-                result["category"]= intent["category"]
+                #service
+                result["service"] = intent["service"]
                 
                 semantic = intent["semantic"]
                 semantic = semantic[0]
