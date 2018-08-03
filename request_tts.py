@@ -44,7 +44,7 @@ def request_tts(text, queue):
     r = requests.post(URL,headers=getHeader(),data=getBody(text))
     contentType = r.headers['Content-Type']
     if contentType == "audio/mpeg":
-        writeFile("audio/answer.wav", r.content)
+        writeFile("audio/mono_answer.wav", r.content)
         queue.put("True")
     else :
         print(r.text)
