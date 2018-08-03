@@ -58,15 +58,17 @@ def start_recognition(FILE_PATH):
 def main():
     while (True):
         command = input("输入s开始录音：")
-        os.system("shell/record.sh")
-        stereo_to_mono()
-        start_recognition("audio/ask.wav")
-        while (queue.empty()):
-            pass
-        if queue.get() == "True":
-            mono_to_stereo()
-            os.system("shell/play.sh")
-        else :
-            print("Ooooooops something wrong!")
+        t = os.system("shell/record.sh")
+        if (t == 256):
+            stereo_to_mono()
+            start_recognition("audio/ask.wav")
+            while (queue.empty()):
+                pass
+            if queue.get() == "True":
+                mono_to_stereo()
+                os.system("shell/play.sh")
+            else :
+                print("Ooooooops something wrong!")
 
+        
 main()
