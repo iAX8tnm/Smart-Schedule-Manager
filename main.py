@@ -59,19 +59,23 @@ def main():
     while (True):
         command = input("输入s开始录音：")
         t = os.system("shell/record.sh")
-        if (t == 256):
-            t = 0
-            stereo_to_mono()
-            start_recognition("audio/mono_ask.wav")
-            while (queue.empty()):
-                pass
-            if queue.get() == "True":
-                mono_to_stereo()
-                t = os.system("shell/play.sh")
-                while (t != 256):
-                    print("！")
-            else :
-                print("Ooooooops something wrong!")
+        while (t != 256):
+            print("!")
+        t = 0
+        print("ok")
+        stereo_to_mono()
+        start_recognition("audio/mono_ask.wav")
+        print("ok2")
+        while (queue.empty()):
+            pass
+        if queue.get() == "True":
+            print("ok3")
+            mono_to_stereo()
+            t = os.system("shell/play.sh")
+            while (t != 256):
+                print("！")
+        else :
+            print("Ooooooops something wrong!")
 
         
 main()
