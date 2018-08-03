@@ -1,4 +1,4 @@
 #!/bin/bash
 cd audio/
-aplay answer.wav
+aplay stereo_answer.wav
 exit 1
