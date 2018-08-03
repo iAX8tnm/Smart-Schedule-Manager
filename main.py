@@ -1,10 +1,15 @@
 from request_nlp import request_nlp
 from person import Person
 from datautil import parse_response
+from queue import Queue
+import os
+
 #因为讯飞的云函数的技能可能经常变，所以定了接口
 QUERY_SERVICE = "MUMUMUSHI.schedule"
 ADD_SERVICE = "MUMUMUSHI.set_schedule_2"
 
+queue = Queue()
+command = None
 
 curUser = Person(0)  #0号人物为当前用户
 
@@ -20,7 +25,7 @@ curUser.add_schedule("2018-08-01T12:30:00", "去买东西")
 # #
 def start_recognition(FILE_PATH):
     r = request_nlp(FILE_PATH)
-    result = parse_response(r)   #应返回intent类型以便调用不同的处理函数
+    result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
     r = None
     if "intent" in result:
         if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
@@ -47,4 +52,17 @@ def start_recognition(FILE_PATH):
             print("Oooooops someting wrong!")
     pass
 
-start_recognition("audio/query_schedule1.wav")
+
+def main():
+    
+    while (True):
+        command = input("输入s开始录音：")
+        os.system("shell/record.sh")
+        start_recognition("audio/ask.wav")
+        while (queue.empty())
+        if queue.get() == "True":
+            os.system("shell/play.sh")
+        else :
+            print("Ooooooops something wrong!")
+        
+

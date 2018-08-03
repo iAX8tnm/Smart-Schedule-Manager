@@ -9,20 +9,20 @@ import threading
 #
 # 保存返回结果，并判断请求时候成功，返回result字典
 # #
-def parse_response(r):
+def parse_response(r, queue):
     result = {}
     f = open('json/result.json','w') #要用try...
     f.write(r)
     f.close()
     j = json.loads(r)
     if j["desc"] == "success":
-        result = parse_data(j)
+        result = parse_data(j, queue)
     return result
 
 #
 # 粗提取数据并选择下一步对应的操作，返回result字典
 # #
-def parse_data(j):
+def parse_data(j, queue):
     data = j["data"]
     
     result = {}
@@ -37,7 +37,7 @@ def parse_data(j):
                 answer = answer["text"]
                 result["answer"] = answer       #js写的回答，need to be returned
                 #获取到答案之后迅速在另一个线程中请求tts
-                task = threading.Thread(target=request_tts, args=(answer,))
+                task = threading.Thread(target=request_tts, args=(answer, queue,))
                 task.start()
 
                 #service

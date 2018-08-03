@@ -1,9 +1,9 @@
 from pydub import AudioSegment
 
 def stereo_to_mono():
-    stereo = AudioSegment.from_file("audio/src.wav")
+    stereo = AudioSegment.from_file("audio/src_ask.wav")
     mono = stereo.set_channels(1)
-    mono.export("audio/src.wav", format="wav")
+    mono.export("audio/ask.wav", format="wav")
 
 def mono_to_stereo():
     mono = AudioSegment.from_file("audio/answer.wav")
