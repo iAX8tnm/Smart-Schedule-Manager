@@ -62,7 +62,7 @@ def main():
         if (t == 256):
             t = 0
             stereo_to_mono()
-            start_recognition("audio/ask.wav")
+            start_recognition("audio/mono_ask.wav")
             while (queue.empty()):
                 pass
             if queue.get() == "True":
