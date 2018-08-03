@@ -13,6 +13,13 @@ ADD_SERVICE = "MUMUMUSHI.set_schedule_2"
 queue = Queue()
 command = None
 
+state  = None
+WAIT   = 0
+RECORD = 1
+NLP    = 2
+TTS    = 3
+PLAY   = 4
+
 curUser = Person(0)  #0号人物为当前用户
 
 #test
@@ -62,7 +69,7 @@ def main():
         while (t != 256):
             print("!")
         t = 0
-        print("ok")
+        print("ok1")
         stereo_to_mono()
         start_recognition("audio/mono_ask.wav")
         print("ok2")
