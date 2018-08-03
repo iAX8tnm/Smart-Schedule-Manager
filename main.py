@@ -1,6 +1,8 @@
 from request_nlp import request_nlp
 from person import Person
 from datautil import parse_response
+from audioutil import stereo_to_mono
+from audioutil import mono_to_stereo
 from queue import Queue
 import os
 
@@ -54,15 +56,17 @@ def start_recognition(FILE_PATH):
 
 
 def main():
-    
     while (True):
         command = input("输入s开始录音：")
         os.system("shell/record.sh")
+        stereo_to_mono()
         start_recognition("audio/ask.wav")
-        while (queue.empty())
+        while (queue.empty()):
+            pass
         if queue.get() == "True":
+            mono_to_stereo()
             os.system("shell/play.sh")
         else :
             print("Ooooooops something wrong!")
-        
 
+main()
