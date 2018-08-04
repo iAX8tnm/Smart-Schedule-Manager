@@ -1,2 +1,2 @@
-# aiui_test
-a simple implement of aiui
+# Smart Schedule Manager
+a simple schedule manager implement by using ...

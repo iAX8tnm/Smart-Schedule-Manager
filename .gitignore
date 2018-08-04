@@ -2,8 +2,6 @@
 __pycache__/
 .vscode/
 json/result.json
-# test program
 test.py
 buglist.txt
 audio/
-README.md

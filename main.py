@@ -67,7 +67,7 @@ def FSM():
     state  = WAIT
     while(True):
         if state == WAIT:
-            command = input("输入s开始录音：")
+            input("点击空格开始录音：")
             state = RECORD
         elif state == RECORD:
             print("start record...")
