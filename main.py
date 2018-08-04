@@ -82,6 +82,7 @@ def FSM():
 def main():
     while (True):
         command = input("输入s开始录音：")
+        print("start record...")
         subprocess.check_call("shell/record.sh", shell=True)
         print("record done")
         stereo_to_mono()
@@ -94,6 +95,8 @@ def main():
             mono_to_stereo()
             subprocess.check_call("shell/play.sh", shell=True)
             print("play done")
+            subprocess.check_call("shell/clean.sh", shell=True)
+            print("clean done")
         else :
             print("Ooooooops something wrong!")
 
