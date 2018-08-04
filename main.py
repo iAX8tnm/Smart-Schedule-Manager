@@ -65,13 +65,14 @@ def start_recognition(FILE_PATH):
 
 
 def FSM():
+    global state
     while(True):
         if state == WAIT:
             command = input("输入s开始录音：")
             state = RECORD
         elif state == RECORD:
             print("start record...")
-            subprocess.check_call("shell/record.sh", shell=True)
+            subprocess.check_call("cd audio/ && arecord -d 5 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav", shell=True)
             print("record done")
             stereo_to_mono()
             state = NLP
@@ -86,9 +87,9 @@ def FSM():
                     mono_to_stereo()
                     state = PLAY
         elif state == PLAY:
-            subprocess.check_call("shell/play.sh", shell=True)
+            subprocess.check_call("cd audio/ && aplay stereo_answer.wav", shell=True)
             print("play done")
-            subprocess.check_call("shell/clean.sh", shell=True)
+            subprocess.check_call("cd audio/ && rm *.wav", shell=True)
             print("clean done")
         else :
             print("something wrong")
