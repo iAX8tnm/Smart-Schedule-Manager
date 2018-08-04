@@ -7,5 +7,6 @@ def stereo_to_mono():
 
 def mono_to_stereo():
     mono = AudioSegment.from_file("audio/mono_answer.wav")
-    stereo = mono.set_channels(2)
+    #stereo = mono.set_channels(2)
+    stereo = AudioSegment.from_mono_audiosegments(mono, mono)
     stereo.export("audio/stereo_answer.wav")

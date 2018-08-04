@@ -13,12 +13,13 @@ ADD_SERVICE = "MUMUMUSHI.set_schedule_2"
 queue = Queue()
 command = None
 
-state  = None
 WAIT   = 0
 RECORD = 1
 NLP    = 2
 TTS    = 3
 PLAY   = 4
+state  = None
+
 
 curUser = Person(0)  #0号人物为当前用户
 
@@ -61,6 +62,21 @@ def start_recognition(FILE_PATH):
             print("Oooooops someting wrong!")
     pass
 
+
+def FSM():
+    while(True):
+        if state == WAIT:
+            pass
+        elif state == RECORD:
+            pass
+        elif state == NLP:
+            pass
+        elif state == TTS:
+            pass
+        elif state == PLAY:
+            pass
+        else :
+            state = WAIT
 
 def main():
     while (True):
