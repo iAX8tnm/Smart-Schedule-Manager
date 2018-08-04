@@ -65,7 +65,7 @@ def parse_data(j, queue):
                 elif intent == "time":   
                     result["time"] = get_time(slots)             #返回时间后再根据category判断要执行的操作     
                 else:
-                    print("something wrong!")
+                    print("something wrong in parse_data()!")
                 
                 print(answer)
                 
