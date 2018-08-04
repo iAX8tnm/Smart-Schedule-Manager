@@ -72,9 +72,9 @@ def FSM():
             state = RECORD
         elif state == RECORD:
             print("start record...")
-            subprocess.check_call("cd audio/ && arecord -d 5 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav", shell=True)
+            subprocess.call("cd audio/ && arecord -d 7 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav", shell=True)
             print("record done")
-            stereo_to_mono()
+            subprocess.call("cd audio/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav", shell=True)  
             state = NLP
         elif state == NLP:
             start_recognition("audio/mono_ask.wav")
@@ -84,13 +84,14 @@ def FSM():
             if not queue.empty():
                 if queue.get() == "True":
                     print("tts done")
-                    mono_to_stereo()
+                    subprocess.check_call("cd audio/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav", shell=True)  
                     state = PLAY
         elif state == PLAY:
-            subprocess.check_call("cd audio/ && aplay stereo_answer.wav", shell=True)
+            subprocess.call("cd audio/ && aplay stereo_answer.wav", shell=True)
             print("play done")
-            subprocess.check_call("cd audio/ && rm *.wav", shell=True)
+            subprocess.call("cd audio/ && rm *.wav && cd ../json/ && rm result.json", shell=True)
             print("clean done")
+            state = WAIT
         else :
             print("something wrong")
             state = WAIT

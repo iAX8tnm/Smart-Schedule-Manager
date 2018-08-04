@@ -4,7 +4,7 @@ def stereo_to_mono():
     try:
         subprocess.check_call("cd audio/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav", shell=True)  
     except subprocess.CalledProcessError:
-        print("failed at stereo_to_stereo()")
+        print("failed at stereo_to_mono()")
 
 def mono_to_stereo():
     try:

@@ -77,33 +77,34 @@ def parse_data(j, queue):
 # 返回时间time为str, 格式有两种，2018-01-01TAM 或2018-01-01T08:00:00
 # #
 def get_time(slots):
-    time = slots[0]    #第0项就是time的语义槽(可能也不是，后期要改)，这里直接提取
-    #time
-    time = time["normValue"]
-    datetime = time[time.index("datetime")+11:time.index("\",\"suggestDatetime")]
-    suggestDatetime = time[time.index("suggestDatetime")+18:time.index("\"}")]
-
-    #处理时间格式                               #还有几种编码。。像凌晨，傍晚这些词。。
-    n = len(datetime)
-    if n == 13:                                #日期带一个上午，一个下午，或者一个晚上的格式
-        time = datetime
-    elif n == 19:                              #日期带具体时间的形式
-        time = datetime
-    elif n == 10:                              #只有一个日期，被我在后面加一个TTT伪装成第一种形式
-        time = datetime + "TTT"
-    elif n == 9:                               #只有一个时间，需要判断，再给他加上个合适的日期
-        suggestTime = T.mktime(T.strptime(suggestDatetime,'%Y-%m-%dT%H:%M:%S'))
-        curTime = T.time()
-        if (suggestTime <= curTime):
-            suggestTime = suggestTime + 86400  #加上24h的秒数，获得明天的时间戳
-            date = T.strftime("%Y-%m-%d", T.localtime(suggestTime)) #转化成日期字符串
-            time = date + datetime
-        else :
-            time = suggestDatetime
-    else :
-        print("Ooooooops somthing wrong!")
+    time = None
+    for slot in slots:
+        if slot["name"] == "time":
+            time = slot["normValue"]
+            datetime = time[time.index("datetime")+11:time.index("\",\"suggestDatetime")]
+            suggestDatetime = time[time.index("suggestDatetime")+18:time.index("\"}")]
     
-    print(time)#DELETE
+            #处理时间格式                               #还有几种编码。。像凌晨，傍晚这些词。。
+            n = len(datetime)
+            if n == 13:                                #日期带一个上午，一个下午，或者一个晚上的格式
+                time = datetime
+            elif n == 19:                              #日期带具体时间的形式
+                time = datetime
+            elif n == 10:                              #只有一个日期，被我在后面加一个TTT伪装成第一种形式
+                time = datetime + "TTT"
+            elif n == 9:                               #只有一个时间，需要判断，再给他加上个合适的日期
+                suggestTime = T.mktime(T.strptime(suggestDatetime,'%Y-%m-%dT%H:%M:%S'))
+                curTime = T.time()
+                if (suggestTime <= curTime):
+                    suggestTime = suggestTime + 86400  #加上24h的秒数，获得明天的时间戳
+                    date = T.strftime("%Y-%m-%d", T.localtime(suggestTime)) #转化成日期字符串
+                    time = date + datetime
+                else :
+                    time = suggestDatetime
+            else :
+                print("Ooooooops somthing wrong!")
+            
+            print(time)#DELETE
     return time
 
 #
@@ -111,7 +112,7 @@ def get_time(slots):
 # #
 def get_thing(slots):  
     thing = None
-    for i in slots:
-        if i["name"] == "thing":
-            thing = i["normValue"]
+    for slot in slots:
+        if slot["name"] == "thing":
+            thing = slot["normValue"]
     return thing
