@@ -64,7 +64,7 @@ def start_recognition(FILE_PATH):
 
 
 def FSM():
-    state  = WAIT
+    global state
     while(True):
         if state == WAIT:
             input("按回车开始录音：")
@@ -100,7 +100,7 @@ def FSM():
             subprocess.call("cd audio/ && rm *.wav && cd ../json/ && rm result.json", shell=True)
             print("clean done")
             state = WAIT
-            
+
         else :
             print("something wrong in FSM()")
             state = WAIT
