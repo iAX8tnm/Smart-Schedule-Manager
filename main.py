@@ -19,7 +19,7 @@ RECORD = 1
 NLP    = 2
 TTS    = 3
 PLAY   = 4
-state  = None
+state  = WAIT
 
 
 curUser = Person(0)  #0号人物为当前用户
@@ -67,16 +67,31 @@ def start_recognition(FILE_PATH):
 def FSM():
     while(True):
         if state == WAIT:
-            pass
+            command = input("输入s开始录音：")
+            state = RECORD
         elif state == RECORD:
-            pass
+            print("start record...")
+            subprocess.check_call("shell/record.sh", shell=True)
+            print("record done")
+            stereo_to_mono()
+            state = NLP
         elif state == NLP:
-            pass
+            start_recognition("audio/mono_ask.wav")
+            print("nlp done")
+            state = TTS
         elif state == TTS:
-            pass
+            if not queue.empty():
+                if queue.get() == "True":
+                    print("tts done")
+                    mono_to_stereo()
+                    state = PLAY
         elif state == PLAY:
-            pass
+            subprocess.check_call("shell/play.sh", shell=True)
+            print("play done")
+            subprocess.check_call("shell/clean.sh", shell=True)
+            print("clean done")
         else :
+            print("something wrong")
             state = WAIT
 
 def main():
@@ -101,4 +116,4 @@ def main():
             print("Ooooooops something wrong!")
 
         
-main()
+FSM()
