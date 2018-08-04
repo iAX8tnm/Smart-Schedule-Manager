@@ -65,7 +65,7 @@ def start_recognition(FILE_PATH):
 
 
 def FSM():
-    global state
+    state  = WAIT
     while(True):
         if state == WAIT:
             command = input("输入s开始录音：")
