@@ -1,12 +1,14 @@
-from pydub import AudioSegment
+import subprocess
 
 def stereo_to_mono():
-    stereo = AudioSegment.from_file("audio/stereo_ask.wav")
-    mono = stereo.set_channels(1)
-    mono.export("audio/mono_ask.wav", format="wav")
+    try:
+        subprocess.check_call("cd audio/ && ffmpeg -i stereo_answer.wav -ac 1 mono_answer.wav", shell=True)  
+    except subprocess.CalledProcessError:
+        print("failed at stereo_to_stereo()")
 
 def mono_to_stereo():
-    mono = AudioSegment.from_file("audio/mono_answer.wav")
-    #stereo = mono.set_channels(2)
-    stereo = AudioSegment.from_mono_audiosegments(mono, mono)
-    stereo.export("audio/stereo_answer.wav")
+    try:
+        subprocess.check_call("cd audio/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav", shell=True)  
+    except subprocess.CalledProcessError:
+        print("failed at mono_to_stereo()")
+      

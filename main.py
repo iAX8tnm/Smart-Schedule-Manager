@@ -5,6 +5,7 @@ from audioutil import stereo_to_mono
 from audioutil import mono_to_stereo
 from queue import Queue
 import os
+import subprocess
 
 #因为讯飞的云函数的技能可能经常变，所以定了接口
 QUERY_SERVICE = "MUMUMUSHI.schedule"
@@ -81,22 +82,18 @@ def FSM():
 def main():
     while (True):
         command = input("输入s开始录音：")
-        t = os.system("shell/record.sh")
-        while (t != 256):
-            print("!")
-        t = 0
-        print("ok1")
+        subprocess.check_call("shell/record.sh", shell=True)
+        print("record done")
         stereo_to_mono()
         start_recognition("audio/mono_ask.wav")
-        print("ok2")
+        print("nlp done")
         while (queue.empty()):
             pass
         if queue.get() == "True":
-            print("ok3")
+            print("tts done")
             mono_to_stereo()
-            t = os.system("shell/play.sh")
-            while (t != 256):
-                print("！")
+            subprocess.check_call("shell/play.sh", shell=True)
+            print("play done")
         else :
             print("Ooooooops something wrong!")
 
