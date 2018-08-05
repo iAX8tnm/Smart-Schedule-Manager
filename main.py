@@ -27,13 +27,6 @@ state  = WAIT
 
 curUser = Person(0)  #0号人物为当前用户
 
-#test
-curUser.add_schedule("2018-07-27TPM", "项目")
-curUser.add_schedule("2018-07-27TTT", "睡觉")
-curUser.add_schedule("2018-07-28TAM", "拿快递")
-curUser.add_schedule("2018-07-28T18:00:00", "学习")
-curUser.add_schedule("2018-07-29T07:00:00", "写作业")
-curUser.add_schedule("2018-08-01T12:30:00", "去买东西")
 
 # 录音后网络请求，处理数据
 # #
