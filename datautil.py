@@ -32,40 +32,42 @@ def parse_data(j, queue):
             if (len(j) != 0):  #check if this intent is empty
                 intent = j
                 
-                #answer
-                answer = intent["answer"]   
-                answer = answer["text"]
-                result["answer"] = answer       #js写的回答，need to be returned
-                #获取到答案之后迅速在另一个线程中请求tts
-                task = threading.Thread(target=request_tts, args=(answer, queue,))
-                task.start()
-                
-                semantic = intent["semantic"]
-                semantic = semantic[0]
+                if "answer" in intent:
+                    #answer
+                    answer = intent["answer"]   
+                    answer = answer["text"]
+                    result["answer"] = answer       
+                    #获取到答案之后迅速在另一个线程中请求tts
+                    task = threading.Thread(target=request_tts, args=(answer, queue,))
+                    task.start()
+                    
+                    semantic = intent["semantic"]
+                    semantic = semantic[0]
 
-                #intent
-                intent = semantic["intent"]  
-                result["intent"] = intent
+                    #intent
+                    intent = semantic["intent"]  
+                    result["intent"] = intent
 
-                slots = semantic["slots"]
+                    slots = semantic["slots"]
 
-                #判断意图intent
-                if intent == "query_schedule_with_time":         #判断时间，然后显示日程
-                    result["time"] = get_time(slots)
-                elif intent == "query_schedule_without_time":    #再次提问
-                    pass                 
-                elif intent == "query_add_time":   
-                    result["time"] = get_time(slots)             ######################                  
-                elif intent == "add_schedule_with_time":         #直接添加新的日程
-                    result["time"] = get_time(slots) 
-                    result["thing"] = get_thing(slots)  
-                elif intent == "add_schedule_without_time":      #添加只有thing的日程，时间为None,再次提问
-                    result["thing"] = get_thing(slots)                         
-                elif intent == "add_add_time":   
-                    result["time"] = get_time(slots)                 
-                else:
-                    pass
-                
+                    #判断意图intent
+                    if intent == "query_schedule_with_time":         #判断时间，然后显示日程
+                        result["time"] = get_time(slots)
+                    elif intent == "query_schedule_without_time":    #再次提问
+                        pass                 
+                    elif intent == "query_add_time":   
+                        result["time"] = get_time(slots)             ######################                  
+                    elif intent == "add_schedule_with_time":         #直接添加新的日程
+                        result["time"] = get_time(slots) 
+                        result["thing"] = get_thing(slots)  
+                    elif intent == "add_schedule_without_time":      #添加只有thing的日程，时间为None,再次提问
+                        result["thing"] = get_thing(slots)                         
+                    elif intent == "add_add_time":   
+                        result["time"] = get_time(slots)                 
+                    else:
+                        pass
+                else :
+                    answer = "不好意思，我好像没听懂。。。"
                 print(answer)
                 
     return result
