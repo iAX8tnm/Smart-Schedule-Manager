@@ -48,6 +48,7 @@ def start_recognition(FILE_PATH):
         if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
             if "time" in result:
                 r = curUser.query_schedule(result["time"])
+                #以后的显示，包括对话，或者日程
         elif result["intent"] == "query_schedule_without_time":                 #查询日程，没时间，在问一次
             pass
         elif result["intent"] == "add_schedule_with_time":                      #添加日程，有时间
@@ -79,10 +80,10 @@ def FSM():
         elif state == RECORD:
             print("start record...")
             #start recording
-            subprocess.call("cd audio/ && arecord -d 7 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav", shell=True)
+            subprocess.call(CMD_RECORD_6S, shell=True)
             print("record done")
             #convert stereo to mono
-            subprocess.call("cd audio/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav", shell=True)  
+            subprocess.call(CMD_STEREO_TO_MONO, shell=True)  
             state = NLP
 
         elif state == NLP:
@@ -95,15 +96,15 @@ def FSM():
                 if queue.get() == "True":
                     print("tts done")
                     #convert mono to stereo
-                    subprocess.check_call("cd audio/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav", shell=True)  
+                    subprocess.check_call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
 
         elif state == PLAY:
             #start playing
-            subprocess.call("cd audio/ && aplay stereo_answer.wav", shell=True)
+            subprocess.call(CMD_PLAY, shell=True)
             print("play done")
             #remove file
-            subprocess.call("cd audio/ && rm *.wav && cd ../json/ && rm result.json", shell=True)
+            subprocess.call(CMD_CLEAN, shell=True)
             print("clean done")
             state = WAIT
 
