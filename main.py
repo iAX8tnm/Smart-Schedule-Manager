@@ -51,6 +51,10 @@ def start_recognition(FILE_PATH):
                 #以后的显示，包括对话，或者日程
         elif result["intent"] == "query_schedule_without_time":                 #查询日程，没时间，在问一次
             pass
+        elif result["intent"] == "query_add_time":
+            if "time" in result:
+                r = curUser.query_schedule(result["time"])
+
         elif result["intent"] == "add_schedule_with_time":                      #添加日程，有时间
             if "time" in result and "thing" in result:
                 curUser.add_schedule(result["time"], result["thing"])
@@ -59,12 +63,7 @@ def start_recognition(FILE_PATH):
                 curUser.add_schedule_without_time(result["thing"])
         elif result["intent"] == "time":                                        #获得时间，检查是查询还是添加
             if "time" in result:
-                if result["service"] == QUERY_SERVICE:
-                    r = curUser.query_schedule(result["time"])
-                elif result["service"] == ADD_SERVICE:
-                    curUser.add_time_to_schedule(result["time"])
-                else :
-                    print("Oooooops something wrong in start_recognition()!")
+                curUser.add_time_to_schedule(result["time"])
         else :
             pass
     pass

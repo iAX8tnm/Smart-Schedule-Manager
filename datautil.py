@@ -39,9 +39,6 @@ def parse_data(j, queue):
                 #获取到答案之后迅速在另一个线程中请求tts
                 task = threading.Thread(target=request_tts, args=(answer, queue,))
                 task.start()
-
-                #service
-                result["service"] = intent["service"]
                 
                 semantic = intent["semantic"]
                 semantic = semantic[0]
@@ -56,16 +53,18 @@ def parse_data(j, queue):
                 if intent == "query_schedule_with_time":         #判断时间，然后显示日程
                     result["time"] = get_time(slots)
                 elif intent == "query_schedule_without_time":    #再次提问
-                    pass                                    
+                    pass                 
+                elif intent == "query_add_time":   
+                    result["time"] = get_time(slots)             ######################                  
                 elif intent == "add_schedule_with_time":         #直接添加新的日程
                     result["time"] = get_time(slots) 
                     result["thing"] = get_thing(slots)  
                 elif intent == "add_schedule_without_time":      #添加只有thing的日程，时间为None,再次提问
                     result["thing"] = get_thing(slots)                         
-                elif intent == "time":   
-                    result["time"] = get_time(slots)             #返回时间后再根据category判断要执行的操作     
+                elif intent == "add_add_time":   
+                    result["time"] = get_time(slots)                 
                 else:
-                    print("something wrong in parse_data()!")
+                    pass
                 
                 print(answer)
                 
