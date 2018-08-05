@@ -21,7 +21,7 @@ function add_schedule_without_time() {
     response.speak('好的，请问什么时候提醒您' + event.session.properties.thing);
 }
 
-function time() { 
+function add_add_time() { 
     if (event.session.properties.thing != null) { //判断一下是不是直接说了个时间，防止没有thing就回答了
         add_schedule_with_time()
     } else {
@@ -33,8 +33,8 @@ if (eventName == 'add_schedule_with_time') {
     add_schedule_with_time();
 } else if (eventName == 'add_schedule_without_time') {
     add_schedule_without_time();
-} else if (eventName == 'time') {
-    time();
+} else if (eventName == 'add_add_time') {
+    add_add_time();
 } else {
     Response.error('Ooooops something wrong', event)
 }

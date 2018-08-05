@@ -17,7 +17,7 @@ function query_schedule_without_time() {
     response.speak('请问您想查询什么时候的行程？');
 }
 
-function time() {
+function query_add_time() {
     if (event.session.properties.time != null) {
         query_schedule_with_time()
     } else {
@@ -30,8 +30,8 @@ if (eventName == 'query_schedule_with_time') {
     query_schedule_with_time();
 } else if (eventName == 'query_schedule_without_time') {
     query_schedule_without_time();
-} else if (eventName == 'time') {
-    time();
+} else if (eventName == 'query_add_time') {
+    query_add_time();
 } else {
     response.error('Ooooops something wrong', event);
 }
