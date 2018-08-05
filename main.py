@@ -5,9 +5,6 @@ from queue import Queue
 import os
 import subprocess
 
-#因为讯飞的云函数的技能可能经常变，所以定了接口
-QUERY_SERVICE = "MUMUMUSHI.schedule"
-ADD_SERVICE = "MUMUMUSHI.set_schedule_2"
 
 queue = Queue()
 command = None
@@ -103,7 +100,7 @@ def FSM():
             subprocess.call(CMD_PLAY, shell=True)
             print("play done")
             #remove file
-            subprocess.call(CMD_CLEAN, shell=True)
+            subprocess.Popen(CMD_CLEAN, shell=True)
             print("clean done")
             state = WAIT
 
