@@ -58,7 +58,7 @@ def start_recognition(FILE_PATH):
         elif result["intent"] == "add_schedule_without_time":                   #添加日程，没时间，再问一次
             if "thing" in result:
                 curUser.add_schedule_without_time(result["thing"])
-        elif result["intent"] == "time":                                        #获得时间，检查是查询还是添加
+        elif result["intent"] == "add_add_time":                                        #获得时间，检查是查询还是添加
             if "time" in result:
                 curUser.add_time_to_schedule(result["time"])
         else :
