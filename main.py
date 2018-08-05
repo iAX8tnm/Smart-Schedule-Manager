@@ -12,6 +12,14 @@ ADD_SERVICE = "MUMUMUSHI.set_schedule_2"
 queue = Queue()
 command = None
 
+CMD_RECORD_6S = "cd audio/ && arecord -d 6 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav"
+CMD_RECORD_4S = "cd audio/ && arecord -d 4 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav"
+CMD_STEREO_TO_MONO = "cd audio/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav"
+CMD_MONO_TO_STEREO = "cd audio/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav"
+CMD_PLAY = "cd audio/ && aplay stereo_answer.wav"
+CMD_CLEAN = "cd audio/ && rm *.wav && cd ../json/ && rm result.json"
+
+
 WAIT   = 0
 RECORD = 1
 NLP    = 2
@@ -42,14 +50,12 @@ def start_recognition(FILE_PATH):
                 r = curUser.query_schedule(result["time"])
         elif result["intent"] == "query_schedule_without_time":                 #查询日程，没时间，在问一次
             pass
-            #start_recognition("audio/time2.wav")
         elif result["intent"] == "add_schedule_with_time":                      #添加日程，有时间
             if "time" in result and "thing" in result:
                 curUser.add_schedule(result["time"], result["thing"])
         elif result["intent"] == "add_schedule_without_time":                   #添加日程，没时间，再问一次
             if "thing" in result:
                 curUser.add_schedule_without_time(result["thing"])
-                #start_recognition("audio/time2.wav")
         elif result["intent"] == "time":                                        #获得时间，检查是查询还是添加
             if "time" in result:
                 if result["service"] == QUERY_SERVICE:
@@ -59,7 +65,7 @@ def start_recognition(FILE_PATH):
                 else :
                     print("Oooooops something wrong in start_recognition()!")
         else :
-            print("Oooooops someting wrong in start_recognition()!")
+            pass
     pass
 
 
