@@ -93,7 +93,7 @@ def FSM():
                 if queue.get() == "True":
                     print("tts done")
                     if "answer" in result:
-                        print(result["ask"])
+                        print(result["answer"])
                     if "schedulelist" in result:
                         print(result["schedulelist"])
                     #convert mono to stereo
