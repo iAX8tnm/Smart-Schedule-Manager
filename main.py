@@ -62,6 +62,8 @@ def start_recognition(FILE_PATH):
 def FSM():
     global state
     #检查audio下和json是否还有上次异常而没有清除的数据
+    if os.path.exists("audio/stereo_ask.wav"):
+        subprocess.Popen(CMD_CLEAN, shell=True)
     while(True):
         if state == WAIT:
             input("按回车开始录音：")
