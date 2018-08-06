@@ -37,7 +37,7 @@ def start_recognition(FILE_PATH):
     global result
     r = request_nlp(FILE_PATH)
     result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
-    r = None
+    r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
     if "intent" in result:
         if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
             if "time" in result:
@@ -51,16 +51,17 @@ def start_recognition(FILE_PATH):
 
         elif result["intent"] == "add_schedule_with_time":                      #添加日程，有时间
             if "time" in result and "thing" in result:
-                curUser.add_schedule(result["time"], result["thing"])
+                r.append(curUser.add_schedule(result["time"], result["thing"]))
         elif result["intent"] == "add_schedule_without_time":                   #添加日程，没时间，再问一次
             if "thing" in result:
                 curUser.add_schedule_without_time(result["thing"])
         elif result["intent"] == "add_add_time":                                        #获得时间，检查是查询还是添加
             if "time" in result:
-                curUser.add_time_to_schedule(result["time"])
+                r.append(curUser.add_time_to_schedule(result["time"]))
         else :
             pass
-    pass
+    #这之后r是一个有schedule组成的list
+    result["schedulelist"] = r
 
 
 def FSM():
@@ -93,6 +94,8 @@ def FSM():
                     print("tts done")
                     if "ask" in result:
                         print(result["ask"])
+                    if "schedulelist" in result:
+                        print(result["schedulelist"])
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY

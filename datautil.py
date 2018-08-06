@@ -112,7 +112,7 @@ def get_time(slots):
                     time = date + datetime
                 else :
                     time = suggestDatetime
-            elif n == 4:
+            elif n == 4:                               #中午TMID，凌晨TEAM 改成中午TMI, 凌晨TEA
                 time = suggestDatetime
             else :
                 print("Ooooooops somthing wrong!")
