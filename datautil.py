@@ -40,6 +40,9 @@ def parse_data(j, queue):
                     #获取到答案之后迅速在另一个线程中请求tts
                     task = threading.Thread(target=request_tts, args=(answer, queue,))
                     task.start()
+
+                    ask = intent["text"]
+                    result["ask"] = ask
                     
                     if "semantic" in intent:
                         semantic = intent["semantic"]
@@ -75,7 +78,7 @@ def parse_data(j, queue):
                     #获取到答案之后迅速在另一个线程中请求tts
                     task = threading.Thread(target=request_tts, args=(answer, queue,))
                     task.start()
-                print(answer)
+                print(ask)
                 
     return result
 
