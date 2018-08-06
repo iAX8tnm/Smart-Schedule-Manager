@@ -63,11 +63,15 @@ def parse_data(j, queue):
                     elif intent == "add_schedule_without_time":      #添加只有thing的日程，时间为None,再次提问
                         result["thing"] = get_thing(slots)                         
                     elif intent == "add_add_time":   
-                        result["time"] = get_time(slots)                 
+                        result["time"] = get_time(slots)                
                     else:
                         pass
                 else :
                     answer = "不好意思，我好像没听懂。。。"
+                    result["answer"] = answer       
+                    #获取到答案之后迅速在另一个线程中请求tts
+                    task = threading.Thread(target=request_tts, args=(answer, queue,))
+                    task.start()
                 print(answer)
                 
     return result
