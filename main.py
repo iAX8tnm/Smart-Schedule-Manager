@@ -86,7 +86,7 @@ def FSM():
                 if queue.get() == "True":
                     print("tts done")
                     #convert mono to stereo
-                    subprocess.check_call(CMD_MONO_TO_STEREO, shell=True)  
+                    subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
 
         elif state == PLAY:
