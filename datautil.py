@@ -100,7 +100,7 @@ def get_time(slots):
                 time = datetime
             elif n == 10:                              #只有一个日期，被我在后面加一个TTT伪装成第一种形式
                 time = datetime + "TTT"
-            elif n == 9:                               #只有一个时间，需要判断，再给他加上个合适的日期
+            elif n == 9 or n == 3:                     #只有一个时间或者一个TAM，TPM等，需要判断，再给他加上个合适的日期
                 suggestTime = T.mktime(T.strptime(suggestDatetime,'%Y-%m-%dT%H:%M:%S'))
                 curTime = T.time()
                 if (suggestTime <= curTime):
@@ -109,6 +109,8 @@ def get_time(slots):
                     time = date + datetime
                 else :
                     time = suggestDatetime
+            elif n == 4:
+                time = suggestDatetime
             else :
                 print("Ooooooops somthing wrong!")
             
