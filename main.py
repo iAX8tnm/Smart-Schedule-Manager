@@ -92,7 +92,7 @@ def FSM():
             if not queue.empty():
                 if queue.get() == "True":
                     print("tts done")
-                    if "ask" in result:
+                    if "answer" in result:
                         print(result["ask"])
                     if "schedulelist" in result:
                         print(result["schedulelist"])
