@@ -49,3 +49,13 @@ def request_tts(text, queue):
     else :
         print(r.text)
         queue.put("False")
+
+def request_tts_no_queue(text):
+    r = requests.post(URL,headers=getHeader(),data=getBody(text))
+    contentType = r.headers['Content-Type']
+    if contentType == "audio/mpeg":
+        writeFile("audio/mono_answer.wav", r.content)
+    else :
+        print(r.text)
+
+request_tts_no_queue("正在启动自毁程序！5，4，3，2，1，bang!")
