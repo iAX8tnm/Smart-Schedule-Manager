@@ -11,7 +11,7 @@ import threading
 # #
 def parse_response(r, queue):
     result = {}
-    f = open('json/result.json','w') #要用try...
+    f = open('temp/result.json','w') #要用try...其实可以不保存的，为了调bug而已
     f.write(r)
     f.close()
     j = json.loads(r)

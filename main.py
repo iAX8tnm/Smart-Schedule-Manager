@@ -7,12 +7,12 @@ import subprocess
 
 
 #程序用到的shell
-CMD_RECORD_6S = "cd audio/ && arecord -d 6 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav"
-CMD_RECORD_4S = "cd audio/ && arecord -d 4 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav"
-CMD_STEREO_TO_MONO = "cd audio/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav"
-CMD_MONO_TO_STEREO = "cd audio/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav"
-CMD_PLAY = "cd audio/ && aplay stereo_answer.wav"
-CMD_CLEAN = "cd audio/ && rm *.wav && cd ../json/ && rm result.json"
+CMD_RECORD_6S = "cd temp/ && arecord -d 6 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav"
+CMD_RECORD_4S = "cd temp/ && arecord -d 4 -r 16000 -c 2 -t wav -f S16_LE stereo_ask.wav"
+CMD_STEREO_TO_MONO = "cd temp/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav"
+CMD_MONO_TO_STEREO = "cd temp/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav"
+CMD_PLAY = "cd temp/ && aplay stereo_answer.wav"
+CMD_CLEAN = "cd temp/ && rm *"
 
 #程序的状态
 WAIT   = 0
@@ -68,7 +68,7 @@ def FSM():
     global state
     global result
     #检查是否有异常退出导致数据没有清理
-    if os.path.exists("audio/stereo_ask.wav"):      
+    if os.path.exists("temp/stereo_ask.wav"):      
         subprocess.Popen(CMD_CLEAN, shell=True)
     while(True):
         if state == WAIT:
@@ -85,7 +85,7 @@ def FSM():
             state = NLP
 
         elif state == NLP:
-            start_recognition("audio/mono_ask.wav")
+            start_recognition("temp/mono_ask.wav")
             print("nlp done")
             state = TTS
 
