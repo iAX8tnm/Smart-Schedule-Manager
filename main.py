@@ -5,6 +5,7 @@ from datautil import parse_response
 from queue import Queue
 import os
 import subprocess
+import pickle
 
 
 #程序用到的shell
@@ -24,9 +25,17 @@ TTS    = 3
 PLAY   = 4
 state  = WAIT
 
-#当前用户为用户0
-
+#当前用户为用户
 curUser = None
+a = Person("老板")
+a.add_schedule("2018-08-09T09:00:00", "出差")
+b = Person("经理")
+b.add_schedule("2018-08-09TPM", "开会")
+c = Person("小李")
+c.add_schedule("2018-08-09T09:00:00", "项目")
+personlist["老板"] = a
+personlist["经理"] = b
+personlist["小李"] = c
 
 
 #全局变量
@@ -110,10 +119,21 @@ def FSM(name):
     global is_record_short
     global curUser
     global has_no_require_person
-    curUser = Person(name)
+    global personlist
+
+    curUser = Person(name)      #我需要检查这个人在不在personlist里
+
     #检查是否有异常退出导致数据没有清理
     if os.path.exists("temp/stereo_ask.wav"):      
         subprocess.Popen(CMD_CLEAN, shell=True)
+ #   if os.path.exists("data/personlist.pickle"):
+ #       try:
+ #           f = open("data/personlist.pickle", "r")
+ #           personlist = pickle.load(f)
+ #           f.close()
+ #       except Exception:
+ #           print("恢复信息失败")
+
     while(True):
         if state == WAIT:
             input("按回车开始录音：")
@@ -166,6 +186,12 @@ def FSM(name):
             #remove file
             subprocess.Popen(CMD_CLEAN, shell=True)
             if is_shutdown :
+#                try:
+#                    f = open("data/personlist.pickle", "w")
+#                    pickle.dump(personlist, f)
+#                    f.close()
+#                except Exception:
+#                    print("保存信息失败")
                 break
             state = WAIT
         else :
