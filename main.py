@@ -66,6 +66,7 @@ def start_recognition(FILE_PATH):
 
 def FSM():
     global state
+    global result
     #检查是否有异常退出导致数据没有清理
     if os.path.exists("audio/stereo_ask.wav"):      
         subprocess.Popen(CMD_CLEAN, shell=True)
@@ -94,8 +95,10 @@ def FSM():
                     print("tts done")
                     if "answer" in result:
                         print(result["answer"])
+                        result.pop("answer")
                     if "schedulelist" in result:
                         print(result["schedulelist"][0].get_thing())
+                        result.pop("schedulelist")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
