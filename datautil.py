@@ -55,20 +55,29 @@ def parse_data(j, queue):
                         slots = semantic["slots"]
 
                         #判断意图intent
-                        if intent == "query_schedule_with_time":         #判断时间，然后显示日程
+                        if intent == "query_schedule_with_time":            #查询行程
                             result["time"] = get_time(slots)
-                        elif intent == "query_schedule_without_time":    #再次提问
+                        elif intent == "query_schedule_without_time":   
                             pass                 
                         elif intent == "query_add_time":   
-                            result["time"] = get_time(slots)             ######################                  
-                        elif intent == "add_schedule_with_time":         #直接添加新的日程
+                            result["time"] = get_time(slots)                   
+
+                        elif intent == "add_schedule_with_time":            #添加行程
                             result["time"] = get_time(slots) 
                             result["thing"] = get_thing(slots)  
-                        elif intent == "add_schedule_without_time":      #添加只有thing的日程，时间为None,再次提问
+                        elif intent == "add_schedule_without_time":
                             result["thing"] = get_thing(slots)                         
                         elif intent == "add_add_time":   
-                            result["time"] = get_time(slots)                
-                        else:
+                            result["time"] = get_time(slots)     
+                        
+                        elif intent == "query_other_schedule_with_time":    #查询别人的行程
+                            result["name"] = get_name(slots)
+                            result["time"] = get_time(slots)  
+                        elif intent == "query_other_schedule_without_time":
+                            result["name"] = get_name(slots)
+                        elif intent == "query_other_add_time":
+                            result["time"] = get_time(slots)           
+                        else:                                               #其它
                             pass
                     else :
                         pass
@@ -128,3 +137,13 @@ def get_thing(slots):
         if slot["name"] == "thing":
             thing = slot["normValue"]
     return thing
+
+#
+# 提取返回结果的人名
+# #
+def get_name(slots):
+    name = None
+    for slot in slots:
+        if slot["name"] == "people":
+            name = slot["normValue"]
+    return name

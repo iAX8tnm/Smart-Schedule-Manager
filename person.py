@@ -1,8 +1,11 @@
 from schedule import Schedule
 import time as T
+
+personlist = {}
+
 class Person:
-    def __init__(self, personID):
-        self.personID = personID
+    def __init__(self, name):
+        self.name = name
         self.scheduleList = []
         self.no_time_schedule = None
 
@@ -68,8 +71,8 @@ class Person:
         return schedule
 
     
-    def get_id(self):
-        return self.personID
+    def get_name(self):
+        return self.name
 
     def get_scheduleList(self):
         return self.scheduleList
@@ -107,3 +110,12 @@ class Person:
                 high = self.scheduleList.index(schedule) + 1
                 break
         return low, high
+
+    # 获取别人的日程
+    # #
+    def query_other_schedule(self, other, time):
+        if other in personlist:
+            pass
+        else :
+            pass
+    
