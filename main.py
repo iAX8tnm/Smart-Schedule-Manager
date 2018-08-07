@@ -13,6 +13,7 @@ CMD_RECORD_3S = "cd temp/ && arecord -d 3 -r 16000 -c 2 -t wav -f S16_LE stereo_
 CMD_STEREO_TO_MONO = "cd temp/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav"
 CMD_MONO_TO_STEREO = "cd temp/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav"
 CMD_PLAY = "cd temp/ && aplay stereo_answer.wav"
+CMD_PLAY_NO_PERSON = "cd data/audio/ && aplay dont_know.wav"
 CMD_CLEAN = "cd temp/ && rm *"
 
 #程序的状态
@@ -25,21 +26,17 @@ state  = WAIT
 
 #当前用户为用户0
 
-curUser = Person("Tyrion")
-usr = Person("James")
-user = Person("Cersei")
-personlist["Tyrion"] = curUser
-personlist["James"] = usr
-personlist["Cersei"] = user
+curUser = None
 
 
 #全局变量
 queue = Queue()
 command = None
 result = {}
-is_exit = False
+is_shutdown = False
 has_no_require_person = False
 is_record_short = False
+last_require_name = ''
 
 
 # 录音后网络请求，处理数据
@@ -47,6 +44,11 @@ is_record_short = False
 def start_recognition(FILE_PATH):
     global result
     global has_no_require_person
+    global is_record_short
+    global is_shutdown
+    global curUser
+    global last_require_name
+
     r = request_nlp(FILE_PATH)
     result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
     r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
@@ -76,25 +78,39 @@ def start_recognition(FILE_PATH):
 
 
         elif result["intent"] == "query_other_schedule_with_time":
-            if "name" in result:
+            if "name" in result and "time" in result:
                 if result["name"] in personlist:
-                    pass
+                    other = personlist[result["name"]]
+                    r = other.query_schedule_with_time(result["time"])
                 else:
                     has_no_require_person = True
         elif result["intent"] == "query_other_schedule_without_time":
-            pass
+            if "name" in result:
+                if result["name"] in personlist:
+                    last_require_name = result["name"]
+                else :
+                    has_no_require_person = True
         elif result["intent"] == "query_other_add_time":
-            pass
+            if "time" in result and last_require_name != '':
+                other = personlist[last_require_name]
+                last_require_name = ''
+                r = other.query_schedule(result["time"])
+        elif result["intent"] == "command_shutdown":
+            is_shutdown = True
         else :
             pass
     #这之后r是一个有schedule组成的list
-    result["schedulelist"] = r
+    if len(r) != 0:
+        result["schedulelist"] = r
 
 
-def FSM():
+def FSM(name):
     global state
     global result
     global is_record_short
+    global curUser
+    global has_no_require_person
+    curUser = Person(name)
     #检查是否有异常退出导致数据没有清理
     if os.path.exists("temp/stereo_ask.wav"):      
         subprocess.Popen(CMD_CLEAN, shell=True)
@@ -125,7 +141,9 @@ def FSM():
             if not queue.empty():
                 if queue.get() == "True":
                     print("tts done")
-                    if "answer" in result:
+                    if has_no_require_person:
+                        print("不好意思，我好像不认识他。。。")
+                    elif "answer" in result:
                         print(result["answer"])
                         result.pop("answer")
                     if "schedulelist" in result and len(result["schedulelist"]) != 0:
@@ -139,11 +157,15 @@ def FSM():
 
         elif state == PLAY:
             #start playing
-            subprocess.call(CMD_PLAY, shell=True)
+            if has_no_require_person:
+                has_no_require_person = False
+                subprocess.call(CMD_PLAY_NO_PERSON, shell=True)
+            else:
+                subprocess.call(CMD_PLAY, shell=True)
             print("play done")
             #remove file
             subprocess.Popen(CMD_CLEAN, shell=True)
-            if is_exit :
+            if is_shutdown :
                 break
             state = WAIT
         else :
@@ -151,4 +173,4 @@ def FSM():
             state = WAIT
 
         
-FSM()
+FSM("")

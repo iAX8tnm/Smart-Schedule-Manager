@@ -117,5 +117,5 @@ class Person:
         if other in personlist:
             pass
         else :
-            pass
+            pass 
     
