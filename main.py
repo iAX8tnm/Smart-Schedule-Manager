@@ -96,7 +96,7 @@ def FSM():
                     if "answer" in result:
                         print(result["answer"])
                         result.pop("answer")
-                    if "schedulelist" in result:
+                    if "schedulelist" in result and len(result["schedulelist"]) != 0:
                         print(result["schedulelist"][0].get_thing())
                         result.pop("schedulelist")
                     #convert mono to stereo
