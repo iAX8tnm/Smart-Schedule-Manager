@@ -97,7 +97,8 @@ def FSM():
                         print(result["answer"])
                         result.pop("answer")
                     if "schedulelist" in result and len(result["schedulelist"]) != 0:
-                        print(result["schedulelist"][0].get_thing())
+                        print("时间：" + result["schedulelist"][0].get_time())
+                        print("日程：" + result["schedulelist"][0].get_thing())
                         result.pop("schedulelist")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  

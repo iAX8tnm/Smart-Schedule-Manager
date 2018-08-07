@@ -117,7 +117,6 @@ def get_time(slots):
             else :
                 print("Ooooooops somthing wrong!")
             
-            print(time)#DELETE
     return time
 
 #
