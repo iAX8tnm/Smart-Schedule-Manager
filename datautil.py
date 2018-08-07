@@ -81,13 +81,14 @@ def parse_data(j, queue):
                             pass
                     else :
                         pass
+                    print(ask)
                 else :
                     answer = "不好意思，我好像没听懂。。。"
                     result["answer"] = answer       
                     #获取到答案之后迅速在另一个线程中请求tts
                     task = threading.Thread(target=request_tts, args=(answer, queue,))
                     task.start()
-                print(ask)
+                
                 
     return result
 
