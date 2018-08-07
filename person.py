@@ -44,7 +44,8 @@ class Person:
                     return self.scheduleList[i:i+3]
         else :
             print("Oooooops something wrong!")
-        return True
+        r = []
+        return r
     
     def delete_schedule(self, time):
         return True
