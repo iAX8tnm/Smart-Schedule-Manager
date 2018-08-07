@@ -199,4 +199,4 @@ def FSM(name):
             state = WAIT
 
         
-FSM("")
+FSM("小李")
