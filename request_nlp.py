@@ -42,11 +42,12 @@ def readFile(filePath):
     data = binfile.read()
     return data
 
-def request_nlp(FILE_PATH):
+def request_nlp(FILE_PATH, queue):
     r = None
     try:
         r = requests.post(URL, headers=buildHeader(), data=readFile(FILE_PATH))
         r = str(r.content, encoding = "utf8")
     except requests.exceptions.RequestException:
         print("网络好像出了点问题")
+        queue.put("NLP_FALSE")
     return r

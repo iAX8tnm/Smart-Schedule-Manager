@@ -58,7 +58,7 @@ def start_recognition(FILE_PATH):
     global curUser
     global last_require_name
 
-    r = request_nlp(FILE_PATH)
+    r = request_nlp(FILE_PATH, queue)
     if r != None:
         result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
         r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
@@ -181,12 +181,15 @@ def FSM(name):
                             print("时间：" + result["schedulelist"][0].get_time())
                             print("日程：" + result["schedulelist"][0].get_thing())
                             result.pop("schedulelist")
+                        else :
+                            print("这个时间还没有日程安排")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
                 elif is_tts_done == "TTS_FALSE":
                     state = WAIT
-                    
+                elif is_tts_done == "NLP_FALSE"
+
         elif state == PLAY:
             #start playing
             if has_no_require_person:
