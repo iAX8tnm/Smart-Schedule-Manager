@@ -106,7 +106,7 @@ def start_recognition(FILE_PATH):
                 other = personlist[last_require_name]
                 last_require_name = ''
                 r = other.query_schedule(result["time"])
-                print("yes2:")
+                print("yes222222:")
                 print(type(r))
         elif result["intent"] == "command_shutdown":
             is_shutdown = True
@@ -174,7 +174,7 @@ def FSM(name):
                         print(result["answer"])
                         result.pop("answer")
                     if "schedulelist" in result and len(result["schedulelist"]) != 0:
-
+                        print("################")
                         print("时间：" + result["schedulelist"][0].get_time())
                         print("日程：" + result["schedulelist"][0].get_thing())
                         result.pop("schedulelist")
