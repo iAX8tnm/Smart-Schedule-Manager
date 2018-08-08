@@ -188,7 +188,8 @@ def FSM(name):
                     state = PLAY
                 elif is_tts_done == "TTS_FALSE":
                     state = WAIT
-                elif is_tts_done == "NLP_FALSE"
+                elif is_tts_done == "NLP_FALSE":
+                    state = WAIT
 
         elif state == PLAY:
             #start playing
