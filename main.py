@@ -92,14 +92,13 @@ def start_recognition(FILE_PATH):
                     if result["name"] in personlist:
                         other = personlist[result["name"]]
                         r = other.query_schedule(result["time"])
-                        print("yes:")
-                        print(type(r))
                     else:
                         has_no_require_person = True
             elif result["intent"] == "query_other_schedule_without_time":
                 if "name" in result:
                     if result["name"] in personlist:
                         last_require_name = result["name"]
+                        is_record_short = True
                     else :
                         has_no_require_person = True
             elif result["intent"] == "query_other_add_time":
@@ -107,8 +106,6 @@ def start_recognition(FILE_PATH):
                     other = personlist[last_require_name]
                     last_require_name = ''
                     r = other.query_schedule(result["time"])
-                    print("yes222222:")
-                    print(type(r))
             elif result["intent"] == "command_shutdown":
                 is_shutdown = True
             else :
@@ -183,6 +180,8 @@ def FSM(name):
                             result.pop("schedulelist")
                         else :
                             print("这个时间还没有日程安排")
+                    else :
+                            print("这个时间还没有日程安排。")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
