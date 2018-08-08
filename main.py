@@ -106,6 +106,8 @@ def start_recognition(FILE_PATH):
                 other = personlist[last_require_name]
                 last_require_name = ''
                 r = other.query_schedule(result["time"])
+                print("yes2:")
+                print(type(r))
         elif result["intent"] == "command_shutdown":
             is_shutdown = True
         else :
