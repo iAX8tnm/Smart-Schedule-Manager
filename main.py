@@ -91,7 +91,8 @@ def start_recognition(FILE_PATH):
                 if result["name"] in personlist:
                     other = personlist[result["name"]]
                     r = other.query_schedule(result["time"])
-                    print("yes:" + type(r))
+                    print("yes:")
+                    print(type(r))
                 else:
                     has_no_require_person = True
         elif result["intent"] == "query_other_schedule_without_time":
@@ -122,7 +123,10 @@ def FSM(name):
     global has_no_require_person
     global personlist
 
-    curUser = Person(name)      #我需要检查这个人在不在personlist里
+    if name in personlist:
+        curUser = personlist[name]
+    else :
+        print("不好意思，您还没有登陆呢")
 
     #检查是否有异常退出导致数据没有清理
     if os.path.exists("temp/stereo_ask.wav"):      
