@@ -38,24 +38,28 @@ def writeFile(file, content):
     f.close()
 
 
-# 供外部调用把参数text转成语音，并存在audio/下， 以返回的sid作为文件名
+# 供外部调用把参数text转成语音，并存在temp/下
 # #
 def request_tts(text, queue):
-    r = requests.post(URL,headers=getHeader(),data=getBody(text))
-    contentType = r.headers['Content-Type']
-    if contentType == "audio/mpeg":
-        writeFile("temp/mono_answer.wav", r.content)
-        queue.put("True")
-    else :
-        print(r.text)
-        queue.put("False")
+    try:
+        r = requests.post(URL,headers=getHeader(),data=getBody(text))
+        contentType = r.headers['Content-Type']
+        if contentType == "audio/mpeg":
+            writeFile("temp/mono_answer.wav", r.content)
+            queue.put("TTS_DONE")
+        else :
+            print(r.text)
+            queue.put("TTS_FALSE")
+    except requests.exceptions.RequestException:
+        print("网络好像出了点问题")
+        queue.put("TTS_FALSE")
 
-def request_tts_no_queue(text):
-    r = requests.post(URL,headers=getHeader(),data=getBody(text))
-    contentType = r.headers['Content-Type']
-    if contentType == "audio/mpeg":
-        writeFile("temp/mono_answer.wav", r.content)
-    else :
-        print(r.text)
+#def request_tts_no_queue(text):
+#    r = requests.post(URL,headers=getHeader(),data=getBody(text))
+#    contentType = r.headers['Content-Type']
+#    if contentType == "audio/mpeg":
+#        writeFile("temp/mono_answer.wav", r.content)
+#    else :
+#        print(r.text)
 
-request_tts_no_queue("正在启动自毁程序！5，4，3，2，1，bang!")
+#request_tts_no_queue("正在启动自毁程序！5，4，3，2，1，bang!")

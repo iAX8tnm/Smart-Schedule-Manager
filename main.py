@@ -59,62 +59,63 @@ def start_recognition(FILE_PATH):
     global last_require_name
 
     r = request_nlp(FILE_PATH)
-    result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
-    r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
-    if "intent" in result:
+    if r != None:
+        result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
+        r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
+        if "intent" in result:
 
-        if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
-            if "time" in result:
-                r = curUser.query_schedule(result["time"])
-                #以后的显示，包括对话，或者日程
-        elif result["intent"] == "query_schedule_without_time":                 #查询日程，没时间，在问一次
-            is_record_short = True
-        elif result["intent"] == "query_add_time":
-            if "time" in result:
-                r = curUser.query_schedule(result["time"])
-
-
-        elif result["intent"] == "add_schedule_with_time":                      #添加日程，有时间
-            if "time" in result and "thing" in result:
-                r.append(curUser.add_schedule(result["time"], result["thing"]))
-        elif result["intent"] == "add_schedule_without_time":                   #添加日程，没时间，再问一次
-            if "thing" in result:
-                curUser.add_schedule_without_time(result["thing"])
-            is_record_short = True
-        elif result["intent"] == "add_add_time":                                        #获得时间，检查是查询还是添加
-            if "time" in result:
-                r.append(curUser.add_time_to_schedule(result["time"]))
+            if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
+                if "time" in result:
+                    r = curUser.query_schedule(result["time"])
+                    #以后的显示，包括对话，或者日程
+            elif result["intent"] == "query_schedule_without_time":                 #查询日程，没时间，在问一次
+                is_record_short = True
+            elif result["intent"] == "query_add_time":
+                if "time" in result:
+                    r = curUser.query_schedule(result["time"])
 
 
-        elif result["intent"] == "query_other_schedule_with_time":
-            if "name" in result and "time" in result:
-                if result["name"] in personlist:
-                    other = personlist[result["name"]]
+            elif result["intent"] == "add_schedule_with_time":                      #添加日程，有时间
+                if "time" in result and "thing" in result:
+                    r.append(curUser.add_schedule(result["time"], result["thing"]))
+            elif result["intent"] == "add_schedule_without_time":                   #添加日程，没时间，再问一次
+                if "thing" in result:
+                    curUser.add_schedule_without_time(result["thing"])
+                is_record_short = True
+            elif result["intent"] == "add_add_time":                                        #获得时间，检查是查询还是添加
+                if "time" in result:
+                    r.append(curUser.add_time_to_schedule(result["time"]))
+
+
+            elif result["intent"] == "query_other_schedule_with_time":
+                if "name" in result and "time" in result:
+                    if result["name"] in personlist:
+                        other = personlist[result["name"]]
+                        r = other.query_schedule(result["time"])
+                        print("yes:")
+                        print(type(r))
+                    else:
+                        has_no_require_person = True
+            elif result["intent"] == "query_other_schedule_without_time":
+                if "name" in result:
+                    if result["name"] in personlist:
+                        last_require_name = result["name"]
+                    else :
+                        has_no_require_person = True
+            elif result["intent"] == "query_other_add_time":
+                if "time" in result and last_require_name != '':
+                    other = personlist[last_require_name]
+                    last_require_name = ''
                     r = other.query_schedule(result["time"])
-                    print("yes:")
+                    print("yes222222:")
                     print(type(r))
-                else:
-                    has_no_require_person = True
-        elif result["intent"] == "query_other_schedule_without_time":
-            if "name" in result:
-                if result["name"] in personlist:
-                    last_require_name = result["name"]
-                else :
-                    has_no_require_person = True
-        elif result["intent"] == "query_other_add_time":
-            if "time" in result and last_require_name != '':
-                other = personlist[last_require_name]
-                last_require_name = ''
-                r = other.query_schedule(result["time"])
-                print("yes222222:")
-                print(type(r))
-        elif result["intent"] == "command_shutdown":
-            is_shutdown = True
-        else :
-            pass
-    #这之后r是一个有schedule组成的list
-    if len(r) != 0:
-        result["schedulelist"] = r
+            elif result["intent"] == "command_shutdown":
+                is_shutdown = True
+            else :
+                pass
+        #这之后r是一个有schedule组成的list
+        if len(r) != 0:
+            result["schedulelist"] = r
 
 
 def FSM(name):
@@ -166,22 +167,26 @@ def FSM(name):
 
         elif state == TTS:
             if not queue.empty():
-                if queue.get() == "True":
+                is_tts_done = queue.get()
+                if is_tts_done == "TTS_DONE":
                     print("tts done")
                     if has_no_require_person:
                         print("不好意思，我好像不认识他。。。")
                     elif "answer" in result:
                         print(result["answer"])
                         result.pop("answer")
-                    if "schedulelist" in result and len(result["schedulelist"]) != 0:
+                    if "schedulelist" in result:
                         print("################")
-                        print("时间：" + result["schedulelist"][0].get_time())
-                        print("日程：" + result["schedulelist"][0].get_thing())
-                        result.pop("schedulelist")
+                        if len(result["schedulelist"]) != 0:
+                            print("时间：" + result["schedulelist"][0].get_time())
+                            print("日程：" + result["schedulelist"][0].get_thing())
+                            result.pop("schedulelist")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
-
+                elif is_tts_done == "TTS_FALSE":
+                    state = WAIT
+                    
         elif state == PLAY:
             #start playing
             if has_no_require_person:
