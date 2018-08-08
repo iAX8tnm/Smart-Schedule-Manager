@@ -91,6 +91,7 @@ def start_recognition(FILE_PATH):
                 if result["name"] in personlist:
                     other = personlist[result["name"]]
                     r = other.query_schedule(result["time"])
+                    print("yes:" + type(r))
                 else:
                     has_no_require_person = True
         elif result["intent"] == "query_other_schedule_without_time":
