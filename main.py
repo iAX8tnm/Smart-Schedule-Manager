@@ -128,6 +128,8 @@ def FSM(name):
     else :
         print("不好意思，您还没有登陆呢")
 
+    if not os.path.exists("temp"):
+        os.mkdir("temp")
     #检查是否有异常退出导致数据没有清理
     if os.path.exists("temp/stereo_ask.wav"):      
         subprocess.Popen(CMD_CLEAN, shell=True)
@@ -215,9 +217,4 @@ def FSM(name):
 
         
 FSM("小李")
-for key in personlist.keys():
-    print(key)
-    value = personlist[key]
-    t = value.get_scheduleList()
-    t = t[0]
-    print(t.get_time())
+
