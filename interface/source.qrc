@@ -1,0 +1,12 @@
+
+<RCC>
+    <qresource prefix="/background">
+          <file>zentree_1.png</file>
+          <file>box_background.png</file>
+    </qresource>
+    <qresource prefix="/button">
+          <file>btn_del.png</file>
+          <file>btn_edit.png</file>
+          <file>btn_record.png</file>
+    </qresource>
+</RCC>

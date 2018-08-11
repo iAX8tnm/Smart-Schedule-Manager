@@ -215,3 +215,9 @@ def FSM(name):
 
         
 FSM("小李")
+for key in personlist.keys():
+    print(key)
+    value = personlist[key]
+    t = value.get_scheduleList()
+    t = t[0]
+    print(t.get_time())
