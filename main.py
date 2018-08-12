@@ -171,8 +171,9 @@ def FSM(name):
 
     while(True):
         if state == WAIT:
-            input("按回车开始录音：")
-            state = RECORD
+            #input("按回车开始录音：")
+            #state = RECORD
+            pass
 
         elif state == RECORD:
             print("start record...")
