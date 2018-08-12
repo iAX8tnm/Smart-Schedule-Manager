@@ -74,6 +74,7 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
 
 def close_win():
     print("do u?")
+    workThread.stop()
     qApp = QApplication.instance()
     qApp.quit()
 
