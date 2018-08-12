@@ -73,6 +73,7 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
         state = RECORD
 
 def close_win():
+    print("do u?")
     qApp = QApplication.instance()
     qApp.quit()
 
