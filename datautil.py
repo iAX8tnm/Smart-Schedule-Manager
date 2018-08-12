@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # a special parse data tool set
 # #

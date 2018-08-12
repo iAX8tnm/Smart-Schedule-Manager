@@ -1,9 +1,15 @@
+# -*- coding: utf-8 -*-
 from request_nlp import request_nlp
 from person import Person
 from person import personlist
 from datautil import parse_response
 from queue import Queue
+from gui.talking_window import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 import os
+import sys
 import subprocess
 import pickle
 
@@ -47,6 +53,28 @@ has_no_require_person = False
 is_record_short = False
 last_require_name = ''
 
+
+class WorkThread(QThread):
+    trigger = pyqtSignal()
+    def __init__(self):
+        super(WorkThread, self).__init__()
+    
+    def run(self):
+        FSM("小李")
+        self.trigger.emit()
+
+class mMainWindow(QMainWindow, Ui_MainWindow):
+    def __init__(self, parent = None):
+        super(mMainWindow, self).__init__(parent)
+        self.setupUi(self)
+    
+    def start_record(arg1, arg2):
+        global state
+        state = RECORD
+
+def close_win():
+    qApp = QApplication.instance()
+    qApp.quit()
 
 # 录音后网络请求，处理数据
 # #
@@ -215,6 +243,21 @@ def FSM(name):
             print("something wrong in FSM()")
             state = WAIT
 
-        
-FSM("小李")
+
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    chat_win = mMainWindow()
+    chat_win.btn_record.clicked.connect(chat_win.start_record)
+
+    workThread = WorkThread()
+    workThread.start()
+    workThread.trigger.connect(close_win)
+    chat_win.show()
+    
+    sys.exit(app.exec_())
+
+
 
