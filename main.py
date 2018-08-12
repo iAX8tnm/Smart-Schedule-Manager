@@ -210,7 +210,10 @@ def FSM(name):
                             print("时间：" + result["schedulelist"][0].get_time())
                             print("日程：" + result["schedulelist"][0].get_thing())
                             result.pop("schedulelist")
-                    elif result["intent"] == "query_schedule_with_time":
+                    elif result["intent"] == "query_schedule_with_time" or \
+                        result["intent"] == "query_add_time" or \
+                        result["intent"] == "query_other_schedule_with_time" or \
+                        result["intent"] == "query_other_add_time":
                             print("这个时间还没有日程安排。")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
