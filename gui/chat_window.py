@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'chat_window.ui'
+# Form implementation generated from reading ui file '/home/mumumushi/Programs/aiui/gui/res/chat_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.5.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -49,7 +49,6 @@ class Ui_MainWindow(object):
         self.layoutWidget.setObjectName("layoutWidget")
         self.hlayout = QtWidgets.QHBoxLayout(self.layoutWidget)
         self.hlayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
-        self.hlayout.setContentsMargins(0, 0, 0, 0)
         self.hlayout.setSpacing(0)
         self.hlayout.setObjectName("hlayout")
         self.left_layout = QtWidgets.QVBoxLayout()
@@ -85,7 +84,6 @@ class Ui_MainWindow(object):
         self.layoutWidget1.setObjectName("layoutWidget1")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget1)
         self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.answer_text = QtWidgets.QLabel(self.layoutWidget1)
@@ -266,7 +264,7 @@ class Ui_MainWindow(object):
         self.ask_box.setAutoFillBackground(False)
         self.ask_box.setObjectName("ask_box")
         self.layoutWidget2 = QtWidgets.QWidget(self.ask_box)
-        self.layoutWidget2.setGeometry(QtCore.QRect(30, 30, 241, 151))
+        self.layoutWidget2.setGeometry(QtCore.QRect(30, 30, 252, 151))
         self.layoutWidget2.setObjectName("layoutWidget2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_2.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
@@ -410,4 +408,4 @@ class Ui_MainWindow(object):
         self.time.setText(_translate("MainWindow", "8月12 下午15:49"))
         self.thing.setText(_translate("MainWindow", "倾听中..."))
 
-import source_rc
+import gui.source_rc

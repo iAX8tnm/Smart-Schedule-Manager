@@ -55,13 +55,15 @@ last_require_name = ''
 
 
 class WorkThread(QThread):
-    trigger = pyqtSignal()
+    trigger_close_win = pyqtSignal()
+    trigger_update_UI = pyqtSignal(dict)
+    
     def __init__(self):
         super(WorkThread, self).__init__()
     
     def run(self):
-        FSM()
-        self.trigger.emit()
+        FSM(self)
+        self.trigger_close_win.emit()
 
 class mMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
@@ -71,7 +73,6 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
     
     def start_record(arg1, arg2):
         global state
-        
         state = RECORD
 
     def keyPressEvent(self, event):
@@ -83,6 +84,10 @@ def close_win():
     workThread.stop()
     qApp = QApplication.instance()
     qApp.quit()
+
+def update_UI_slot(r):
+    print("yes")
+
 
 # 录音后网络请求，处理数据
 # #
@@ -152,14 +157,12 @@ def start_recognition(FILE_PATH):
             result["schedulelist"] = r
 
 
-def FSM():
+def FSM(signal):
     global state
     global result
     global is_record_short
     global has_no_require_person
     global personlist
-
-    
 
     if not os.path.exists("temp"):
         os.mkdir("temp")
@@ -173,7 +176,7 @@ def FSM():
  #           f.close()
  #       except Exception:
  #           print("恢复信息失败")
-
+    
     while(True):
         if state == WAIT:
             #input("按回车开始录音：")
@@ -182,6 +185,7 @@ def FSM():
 
         elif state == RECORD:
             print("start record...")
+            signal.trigger_update_UI.emit()
             #start recording
             if is_record_short :
                 subprocess.call(CMD_RECORD_3S, shell=True)
@@ -264,7 +268,8 @@ if __name__ == '__main__':
 
     workThread = WorkThread()
     workThread.start()
-    workThread.trigger.connect(close_win)
+    workThread.trigger_close_win.connect(close_win)
+    workThread.trigger_update_UI.connect(lambda: update_UI_slot(r))
     chat_win.show()
     
     sys.exit(app.exec_())

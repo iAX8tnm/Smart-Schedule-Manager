@@ -22,6 +22,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     chat_win = mMainWindow()
+    chat_win.setWindowFlags(Qt.FramelessWindowHint)
     chat_win.show()
     sys.exit(app.exec_())
     pass
