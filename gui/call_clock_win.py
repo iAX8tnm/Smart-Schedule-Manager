@@ -13,6 +13,7 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
         self.timer.start(1000)
         self.is_odd = False
 
+
     def update_time(self):
         time = QDateTime.currentDateTime()
         time_text = time.toString("hh:mm")
@@ -23,6 +24,9 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
             self.is_odd = True
         self.time_display.setText(time_text)
 
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Escape:
+            self.close()
 
 if __name__ == '__main__':
 

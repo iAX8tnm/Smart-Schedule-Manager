@@ -74,6 +74,10 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
         
         state = RECORD
 
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Escape:
+            self.close()
+
 def close_win():
     #print("do u?")
     workThread.stop()
@@ -94,7 +98,7 @@ def start_recognition(FILE_PATH):
     if r != None:
         result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
         r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
-        chat_win.thing.setText(result["ask"])
+        
         if "intent" in result:
 
             if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间

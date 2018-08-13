@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/background">
+    <file>background.png</file>
     <file>box_background2.png</file>
     <file>zentree_1.png</file>
     <file>box_background.png</file>

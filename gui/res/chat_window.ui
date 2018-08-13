@@ -90,7 +90,7 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="source.qrc">:/background/zentree_1.png</pixmap>
+     <pixmap resource="source.qrc">:/background/background.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -1006,10 +1006,7 @@
            </item>
           </layout>
          </widget>
-         <widget class="QLabel" name="msg_bac">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+         <widget class="QLabel" name="label_background">
           <property name="geometry">
            <rect>
             <x>0</x>
@@ -1036,9 +1033,6 @@
             <height>200</height>
            </size>
           </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
           <property name="text">
            <string/>
           </property>
@@ -1048,8 +1042,11 @@
           <property name="scaledContents">
            <bool>true</bool>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
-         <zorder>msg_bac</zorder>
+         <zorder>label_background</zorder>
          <zorder>layoutWidget</zorder>
         </widget>
        </item>
@@ -1078,5 +1075,22 @@
  <resources>
   <include location="source.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_delete</sender>
+   <signal>clicked()</signal>
+   <receiver>ask_box</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1081</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1135</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

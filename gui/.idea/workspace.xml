@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b70e9c9d-1c64-4b9b-b6cd-894ff75d4069" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/res/clock_window.ui" beforeDir="false" afterPath="$PROJECT_DIR$/res/clock_window.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/call_clock_win.py" beforeDir="false" afterPath="$PROJECT_DIR$/call_clock_win.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/call_main_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/call_main_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/chat_window.ui" beforeDir="false" afterPath="$PROJECT_DIR$/res/chat_window.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/source.qrc" beforeDir="false" afterPath="$PROJECT_DIR$/res/source.qrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/source_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,60 +21,48 @@
     <session id="-1502825310">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="5" />
+          <entry key="project.closed" value="6" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="1" />
           <entry key="py" value="14" />
-          <entry key="qrc" value="3" />
+          <entry key="qrc" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="1" />
           <entry key="Python" value="14" />
-          <entry key="XML" value="3" />
+          <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1137" />
+          <entry key="py" value="1154" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1137" />
+          <entry key="Python" value="1154" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/call_main_window.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="8" selection-start-line="7" selection-end-line="22" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/call_clock_win.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="152">
+              <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -91,9 +86,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/call_widget.py" />
-        <option value="$PROJECT_DIR$/call_main_window.py" />
         <option value="$PROJECT_DIR$/clock_window.py" />
         <option value="$PROJECT_DIR$/call_clock_win.py" />
+        <option value="$PROJECT_DIR$/call_main_window.py" />
       </list>
     </option>
   </component>
@@ -164,7 +159,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.call_clock_win">
+  <component name="RunManager" selected="Python.call_main_window">
     <configuration name="call_clock_win" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="gui" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -235,8 +230,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.call_clock_win" />
         <item itemvalue="Python.call_main_window" />
+        <item itemvalue="Python.call_clock_win" />
         <item itemvalue="Python.call_widget" />
       </list>
     </recent_temporary>
@@ -256,6 +251,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4987775" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" sideWeight="0.5012225" side_tool="true" weight="0.25" />
@@ -296,36 +292,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clock_window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/btn_record.png">
       <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clock_window.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/res/source.qrc">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/call_main_window.py">
+    <entry file="file://$PROJECT_DIR$/call_clock_win.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="8" selection-start-line="7" selection-end-line="22" selection-end-column="8" />
+        <state relative-caret-position="240">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="28" selection-end-column="24" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clock_window.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/call_clock_win.py">
+    <entry file="file://$PROJECT_DIR$/call_main_window.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="152">
+          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
