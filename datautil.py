@@ -4,8 +4,9 @@
 # #
 import json
 import time as T
-from request_tts import request_tts
 import threading
+from request_tts import request_tts
+
 
 #
 # 保存返回结果，并判断请求时候成功，返回result字典
@@ -64,33 +65,34 @@ def parse_data(j, queue):
                             result["time"] = get_time(slots)                   
 
                         elif intent == "add_schedule_with_time":            #添加行程
-                            result["time"] = get_time(slots) 
-                            result["thing"] = get_thing(slots)  
+                            result["time"] = get_time(slots)
+                            result["thing"] = get_thing(slots)
                         elif intent == "add_schedule_without_time":
-                            result["thing"] = get_thing(slots)                         
-                        elif intent == "add_add_time":   
-                            result["time"] = get_time(slots)     
+                            result["thing"] = get_thing(slots)
+                        elif intent == "add_add_time":
+                            result["time"] = get_time(slots)
                         
                         elif intent == "query_other_schedule_with_time":    #查询别人的行程
                             result["name"] = get_name(slots)
-                            result["time"] = get_time(slots)  
+                            result["time"] = get_time(slots)
                         elif intent == "query_other_schedule_without_time":
                             result["name"] = get_name(slots)
                         elif intent == "query_other_add_time":
-                            result["time"] = get_time(slots)           
+                            result["time"] = get_time(slots)
                         else:                                               #其它
                             pass
-                    else :
+                    else:
                         pass
-                    print(ask)
-                else :
+                   
+                else:
                     answer = "不好意思，我好像没听懂。。。"
-                    result["answer"] = answer       
-                    #获取到答案之后迅速在另一个线程中请求tts
-                    task = threading.Thread(target=request_tts, args=(answer, queue,))
-                    task.start()
-                
-                
+                    result["answer"] = answer
+                    queue.put("DONT_UNDERSTAND")
+    if len(result) == 0:
+        answer = "不好意思，我好像没听懂。。。"
+        result["answer"] = answer
+        queue.put("DONT_UNDERSTAND")
+
     return result
 
 

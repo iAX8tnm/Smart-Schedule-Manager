@@ -17,7 +17,7 @@ LAT = "23.2"
 LNG = "116.6"
 
 PERS_PARAM = "{\\\"auth_id\\\":\\\"2894c985bf8b1111c6728db79d3479ae\\\"}"
-#FILE_PATH = "audio/add_schedule2.wav"
+FILE_PATH = "temp/mono_ask.wav"
 
 
 def buildHeader():
@@ -42,7 +42,7 @@ def readFile(filePath):
     data = binfile.read()
     return data
 
-def request_nlp(FILE_PATH, queue):
+def request_nlp(queue):
     r = None
     try:
         r = requests.post(URL, headers=buildHeader(), data=readFile(FILE_PATH))

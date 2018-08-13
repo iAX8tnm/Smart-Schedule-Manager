@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'clock_window.ui'
+# Form implementation generated from reading ui file '/home/mumumushi/Programs/aiui/gui/res/clock_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.5.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -33,7 +33,6 @@ class Ui_MainWindow(object):
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -81,7 +80,7 @@ class Ui_MainWindow(object):
         self.clock_background.setMinimumSize(QtCore.QSize(1280, 800))
         self.clock_background.setMaximumSize(QtCore.QSize(1280, 800))
         self.clock_background.setText("")
-        self.clock_background.setPixmap(QtGui.QPixmap(":/background/zentree_1.png"))
+        self.clock_background.setPixmap(QtGui.QPixmap(":/background/background.png"))
         self.clock_background.setScaledContents(True)
         self.clock_background.setAlignment(QtCore.Qt.AlignCenter)
         self.clock_background.setObjectName("clock_background")
@@ -97,4 +96,4 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.time_display.setText(_translate("MainWindow", "00:00"))
 
-import source_rc
+import gui.source_rc

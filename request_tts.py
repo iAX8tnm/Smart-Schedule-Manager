@@ -47,12 +47,12 @@ def request_tts(text, queue):
         if contentType == "audio/mpeg":
             writeFile("temp/mono_answer.wav", r.content)
             queue.put("TTS_DONE")
-        else :
+        else:
             print(r.text)
             queue.put("TTS_FALSE")
     except requests.exceptions.RequestException:
         print("网络好像出了点问题")
-        queue.put("TTS_FALSE")
+        queue.put("TTS_FALSE_INTERNET")
 
 #def request_tts_no_queue(text):
 #    r = requests.post(URL,headers=getHeader(),data=getBody(text))

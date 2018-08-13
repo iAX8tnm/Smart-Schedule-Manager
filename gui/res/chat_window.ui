@@ -146,7 +146,7 @@
          </property>
         </spacer>
        </item>
-       <item alignment="Qt::AlignLeft">
+       <item alignment="Qt::AlignHCenter">
         <widget class="QWidget" name="answer_box" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -208,8 +208,8 @@
            <rect>
             <x>50</x>
             <y>50</y>
-            <width>301</width>
-            <height>201</height>
+            <width>302</width>
+            <height>207</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">
@@ -229,13 +229,13 @@
              </property>
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>300</width>
                <height>20</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>100</width>
+               <width>300</width>
                <height>50</height>
               </size>
              </property>
@@ -285,6 +285,9 @@
              <property name="text">
               <string>这是回答</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
              <property name="wordWrap">
               <bool>true</bool>
              </property>
@@ -302,8 +305,23 @@
            </item>
            <item>
             <layout class="QGridLayout" name="gridLayout">
+             <property name="leftMargin">
+              <number>10</number>
+             </property>
+             <property name="topMargin">
+              <number>10</number>
+             </property>
+             <property name="rightMargin">
+              <number>10</number>
+             </property>
+             <property name="bottomMargin">
+              <number>10</number>
+             </property>
+             <property name="spacing">
+              <number>10</number>
+             </property>
              <item row="0" column="1">
-              <widget class="QLabel" name="time_value">
+              <widget class="QLabel" name="answer_time_value">
                <property name="palette">
                 <palette>
                  <active>
@@ -343,8 +361,8 @@
                </property>
                <property name="font">
                 <font>
-                 <family>Microsoft YaHei UI</family>
-                 <pointsize>10</pointsize>
+                 <family>Ubuntu</family>
+                 <pointsize>12</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -356,6 +374,12 @@
              </item>
              <item row="0" column="0">
               <widget class="QLabel" name="time_item">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="palette">
                 <palette>
                  <active>
@@ -402,12 +426,18 @@
                 </font>
                </property>
                <property name="text">
-                <string>时间</string>
+                <string>时间:</string>
                </property>
               </widget>
              </item>
              <item row="1" column="0">
               <widget class="QLabel" name="thing_item">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="palette">
                 <palette>
                  <active>
@@ -454,12 +484,12 @@
                 </font>
                </property>
                <property name="text">
-                <string>事件</string>
+                <string>事件:</string>
                </property>
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLabel" name="thing_value">
+              <widget class="QLabel" name="answer_thing_value">
                <property name="palette">
                 <palette>
                  <active>
@@ -500,7 +530,7 @@
                <property name="font">
                 <font>
                  <family>Microsoft YaHei UI</family>
-                 <pointsize>10</pointsize>
+                 <pointsize>11</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -701,7 +731,7 @@
          </property>
         </spacer>
        </item>
-       <item alignment="Qt::AlignRight">
+       <item alignment="Qt::AlignHCenter">
         <widget class="QWidget" name="ask_box" native="true">
          <property name="enabled">
           <bool>true</bool>
@@ -740,7 +770,7 @@
            <rect>
             <x>30</x>
             <y>30</y>
-            <width>252</width>
+            <width>241</width>
             <height>151</height>
            </rect>
           </property>
@@ -764,7 +794,7 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QLabel" name="time">
+            <widget class="QLabel" name="ask_time">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -815,7 +845,7 @@
               </font>
              </property>
              <property name="text">
-              <string>8月12 下午15:49</string>
+              <string>8月12 15:49</string>
              </property>
              <property name="indent">
               <number>5</number>
@@ -823,7 +853,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="thing">
+            <widget class="QLabel" name="ask_text">
              <property name="sizePolicy">
               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -1033,6 +1063,9 @@
             <height>200</height>
            </size>
           </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -1044,6 +1077,9 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="indent">
+           <number>-1</number>
           </property>
          </widget>
          <zorder>label_background</zorder>
@@ -1089,6 +1125,22 @@
     <hint type="destinationlabel">
      <x>1135</x>
      <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_delete</sender>
+   <signal>clicked()</signal>
+   <receiver>answer_box</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1081</x>
+     <y>319</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>201</x>
+     <y>617</y>
     </hint>
    </hints>
   </connection>

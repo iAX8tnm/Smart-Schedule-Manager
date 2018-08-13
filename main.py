@@ -21,6 +21,8 @@ CMD_STEREO_TO_MONO = "cd temp/ && ffmpeg -i stereo_ask.wav -ac 1 mono_ask.wav"
 CMD_MONO_TO_STEREO = "cd temp/ && ffmpeg -i mono_answer.wav -ac 2 stereo_answer.wav"
 CMD_PLAY = "cd temp/ && aplay stereo_answer.wav"
 CMD_PLAY_NO_PERSON = "cd data/audio/ && aplay dont_know.wav"
+CMD_PLAY_DONT_UNDERSTAND = "cd data/audio/ && aplay dont_understand.wav"
+CMD_PLAY_BAD_INTERNET = "cd data/audio/ && aplay bad internet.wav"
 CMD_CLEAN = "cd temp/ && rm *"
 
 #程序的状态
@@ -71,9 +73,16 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         
     
-    def start_record(arg1, arg2):
+    def start_record(self, arg):
         global state
         state = RECORD
+
+        self.ask_text.setText("倾听中...")
+        self.answer_box.setHidden(True)
+        time = QDateTime.currentDateTime()
+        time_text = time.toString("MM月dd hh:mm")
+        self.ask_time.setText(time_text)
+    
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
@@ -85,13 +94,28 @@ def close_win():
     qApp = QApplication.instance()
     qApp.quit()
 
-def update_UI_slot(r):
+def update_UI_slot(p):
     print("yes")
+    if "purpose" in p:
+        if p["purpose"] == "START_RECORD":
+            chat_win.ask_box.setHidden(False)
+            chat_win.label_background.setHidden(True)
+        elif p["purpose"] == "RECORD_DONE":
+            pass
+        elif p["purpose"] == "ASK_TEXT":
+            chat_win.ask_text.setText(p["data"])
+        elif p["purpose"] == "ANSWER_TEXT":
+            chat_win.answer_box.setHidden(False)
+            chat_win.answer_text.setText(p["data"])
+        elif p["purpose"] == "ANSWER_DATA":
+            pass
+        elif p["purpose"] == "PLAY_DONE":
+            pass
 
 
 # 录音后网络请求，处理数据
 # #
-def start_recognition(FILE_PATH):
+def start_recognition(signal):
     global result
     global has_no_require_person
     global is_record_short
@@ -99,11 +123,15 @@ def start_recognition(FILE_PATH):
     global curUser
     global last_require_name
 
-    r = request_nlp(FILE_PATH, queue)
+    r = request_nlp(queue)
     if r != None:
         result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
         r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
-        
+
+        if "ask" in result:
+            signal.trigger_update_UI.emit({"purpose":"ASK_TEXT", "data":result["ask"]})
+        else:
+            signal.trigger_update_UI.emit({"purpose":"ASK_TEXT", "data":"？"})
         if "intent" in result:
 
             if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
@@ -169,14 +197,7 @@ def FSM(signal):
     #检查是否有异常退出导致数据没有清理
     if os.path.exists("temp/stereo_ask.wav"):      
         subprocess.Popen(CMD_CLEAN, shell=True)
- #   if os.path.exists("data/personlist.pickle"):
- #       try:
- #           f = open("data/personlist.pickle", "r")
- #           personlist = pickle.load(f)
- #           f.close()
- #       except Exception:
- #           print("恢复信息失败")
-    
+
     while(True):
         if state == WAIT:
             #input("按回车开始录音：")
@@ -184,21 +205,22 @@ def FSM(signal):
             pass
 
         elif state == RECORD:
+            signal.trigger_update_UI.emit({"purpose":"START_RECORD"})
             print("start record...")
-            signal.trigger_update_UI.emit()
             #start recording
-            if is_record_short :
+            if is_record_short:
                 subprocess.call(CMD_RECORD_3S, shell=True)
                 is_record_short = False
             else :
                 subprocess.call(CMD_RECORD_5S, shell=True)
+            signal.trigger_update_UI.emit({"purpose":"RECORD_DONE"})
             print("record done")
             #convert stereo to mono
             subprocess.call(CMD_STEREO_TO_MONO, shell=True)  
             state = NLP
 
         elif state == NLP:
-            start_recognition("temp/mono_ask.wav")
+            start_recognition(signal)
             print("nlp done")
             state = TTS
 
@@ -208,13 +230,16 @@ def FSM(signal):
                 if is_tts_done == "TTS_DONE":
                     print("tts done")
                     if has_no_require_person:
+                        signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":"不好意思，我好像不认识他。。。"})
                         print("不好意思，我好像不认识他。。。")
                     elif "answer" in result:
+                        signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":result["answer"]})
                         print(result["answer"])
                         result.pop("answer")
                     if "schedulelist" in result:
                         print("################")
                         if len(result["schedulelist"]) != 0:
+                            signal.trigger_update_UI.emit({"purpose":"ANSWER_DATA", "data":result["answer"]})
                             print("时间：" + result["schedulelist"][0].get_time())
                             print("日程：" + result["schedulelist"][0].get_thing())
                             result.pop("schedulelist")
@@ -222,13 +247,35 @@ def FSM(signal):
                         result["intent"] == "query_add_time" or \
                         result["intent"] == "query_other_schedule_with_time" or \
                         result["intent"] == "query_other_add_time":
+                            signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":"这个时间还没有日程安排。"})
                             print("这个时间还没有日程安排。")
                     #convert mono to stereo
                     subprocess.call(CMD_MONO_TO_STEREO, shell=True)  
                     state = PLAY
+
                 elif is_tts_done == "TTS_FALSE":
+                    signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":"不好意思，我好像没听懂。。。"})
+                    subprocess.call(CMD_PLAY_DONT_UNDERSTAND, shell=True)
+                    print("play done")
+                    subprocess.Popen(CMD_CLEAN, shell=True)
+                    state = WAIT
+                elif is_tts_done == "TTS_FALSE_INTERNET":
+                    signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":"网络好像出了点问题"})
+                    subprocess.call(CMD_PLAY_BAD_INTERNET, shell=True)
+                    print("play done")
+                    subprocess.Popen(CMD_CLEAN, shell=True)
                     state = WAIT
                 elif is_tts_done == "NLP_FALSE":
+                    signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":"不好意思，我好像没听懂。。。"})
+                    subprocess.call(CMD_PLAY_DONT_UNDERSTAND, shell=True)
+                    print("play done")
+                    subprocess.Popen(CMD_CLEAN, shell=True)
+                    state = WAIT
+                elif is_tts_done == "DONT_UNDERSTAND":
+                    signal.trigger_update_UI.emit({"purpose":"ANSWER_TEXT", "data":"不好意思，我好像没听懂。。。"})
+                    subprocess.call(CMD_PLAY_DONT_UNDERSTAND, shell=True)
+                    print("play done")
+                    subprocess.Popen(CMD_CLEAN, shell=True)
                     state = WAIT
 
         elif state == PLAY:
@@ -238,13 +285,14 @@ def FSM(signal):
                 subprocess.call(CMD_PLAY_NO_PERSON, shell=True)
             else:
                 subprocess.call(CMD_PLAY, shell=True)
+            signal.trigger_update_UI.emit({"purpose":"PLAY_DONE"})
             print("play done")
             #remove file
             subprocess.Popen(CMD_CLEAN, shell=True)
-            if is_shutdown :
+            if is_shutdown:
                 break
             state = WAIT
-        else :
+        else:
             print("something wrong in FSM()")
             state = WAIT
 
@@ -262,14 +310,17 @@ if __name__ == '__main__':
             print("不好意思，您还没有登陆呢")
             #这里应该要退到登录界面，为了调试方便让小李成为curUser
             curUser = c
+
+
     chat_win = mMainWindow()
     chat_win.btn_record.clicked.connect(chat_win.start_record)
-
+    chat_win.ask_box.setHidden(True)
+    chat_win.answer_box.setHidden(True)
 
     workThread = WorkThread()
     workThread.start()
     workThread.trigger_close_win.connect(close_win)
-    workThread.trigger_update_UI.connect(lambda: update_UI_slot(r))
+    workThread.trigger_update_UI.connect(update_UI_slot)
     chat_win.show()
     
     sys.exit(app.exec_())

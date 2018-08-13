@@ -9,9 +9,9 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
         super(mMainWindow, self).__init__(parent)
         self.setupUi(self)
-        #self.label_background.hide()
+        self.label_background.hide()
 
-        self.thing.setText("查看明天上午的行程")
+        #self.thing.setText("查看明天上午的行程")
     
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
