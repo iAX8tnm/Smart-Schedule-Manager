@@ -141,8 +141,8 @@
        </property>
        <property name="font">
         <font>
-         <family>Monospace</family>
-         <pointsize>250</pointsize>
+         <family>Monospac821 BT</family>
+         <pointsize>260</pointsize>
          <weight>50</weight>
          <italic>false</italic>
          <bold>false</bold>
