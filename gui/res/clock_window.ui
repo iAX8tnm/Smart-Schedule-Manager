@@ -141,10 +141,10 @@
        </property>
        <property name="font">
         <font>
-         <family>Monospac821 BT</family>
-         <pointsize>265</pointsize>
+         <family>Monospace</family>
+         <pointsize>250</pointsize>
          <weight>50</weight>
-         <italic>true</italic>
+         <italic>false</italic>
          <bold>false</bold>
          <kerning>false</kerning>
         </font>
