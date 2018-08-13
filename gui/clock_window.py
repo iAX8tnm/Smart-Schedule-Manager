@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'clock_window.ui'
 #
@@ -58,8 +58,12 @@ class Ui_MainWindow(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
         self.time_display.setPalette(palette)
         font = QtGui.QFont()
-        font.setFamily("Microsoft YaHei UI")
-        font.setPointSize(285)
+        font.setFamily("Monospac821 BT")
+        font.setPointSize(265)
+        font.setBold(False)
+        font.setItalic(True)
+        font.setWeight(50)
+        font.setKerning(False)
         self.time_display.setFont(font)
         self.time_display.setScaledContents(True)
         self.time_display.setAlignment(QtCore.Qt.AlignCenter)

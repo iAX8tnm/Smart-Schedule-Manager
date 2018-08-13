@@ -141,8 +141,12 @@
        </property>
        <property name="font">
         <font>
-         <family>Microsoft YaHei UI</family>
-         <pointsize>285</pointsize>
+         <family>Monospac821 BT</family>
+         <pointsize>265</pointsize>
+         <weight>50</weight>
+         <italic>true</italic>
+         <bold>false</bold>
+         <kerning>false</kerning>
         </font>
        </property>
        <property name="text">
