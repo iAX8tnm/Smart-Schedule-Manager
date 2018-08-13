@@ -4,7 +4,7 @@ from person import Person
 from person import personlist
 from datautil import parse_response
 from queue import Queue
-from gui.talking_window import *
+from gui.chat_window import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -60,7 +60,7 @@ class WorkThread(QThread):
         super(WorkThread, self).__init__()
     
     def run(self):
-        FSM("小李")
+        FSM()
         self.trigger.emit()
 
 class mMainWindow(QMainWindow, Ui_MainWindow):
@@ -73,7 +73,7 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
         state = RECORD
 
 def close_win():
-    print("do u?")
+    #print("do u?")
     workThread.stop()
     qApp = QApplication.instance()
     qApp.quit()
@@ -145,18 +145,14 @@ def start_recognition(FILE_PATH):
             result["schedulelist"] = r
 
 
-def FSM(name):
+def FSM():
     global state
     global result
     global is_record_short
-    global curUser
     global has_no_require_person
     global personlist
 
-    if name in personlist:
-        curUser = personlist[name]
-    else :
-        print("不好意思，您还没有登陆呢")
+    
 
     if not os.path.exists("temp"):
         os.mkdir("temp")
@@ -235,12 +231,6 @@ def FSM(name):
             #remove file
             subprocess.Popen(CMD_CLEAN, shell=True)
             if is_shutdown :
-#                try:
-#                    f = open("data/personlist.pickle", "w")
-#                    pickle.dump(personlist, f)
-#                    f.close()
-#                except Exception:
-#                    print("保存信息失败")
                 break
             state = WAIT
         else :
@@ -253,6 +243,14 @@ def FSM(name):
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
+    if len(sys.argv) >= 2:
+        name = sys.argv[1]
+        if name in personlist:
+            curUser = personlist[name]
+        else :
+            print("不好意思，您还没有登陆呢")
+            #这里应该要退到登录界面，为了调试方便让小李成为curUser
+            curUser = c
     chat_win = mMainWindow()
     chat_win.btn_record.clicked.connect(chat_win.start_record)
 

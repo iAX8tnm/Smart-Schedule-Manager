@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     ex = QWidget()
-    msg_box = Ui_Form()
+    msg_box = Ui_msg_box()
     msg_box.setupUi(ex)
     msg_box.ask_text.setText("hahah")
     ex.show()
