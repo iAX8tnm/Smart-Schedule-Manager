@@ -253,6 +253,7 @@ if __name__ == '__main__':
             curUser = c
     chat_win = mMainWindow()
     chat_win.btn_record.clicked.connect(chat_win.start_record)
+    
 
     workThread = WorkThread()
     workThread.start()
