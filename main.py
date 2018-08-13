@@ -67,9 +67,11 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
         super(mMainWindow, self).__init__(parent)
         self.setupUi(self)
+        
     
     def start_record(arg1, arg2):
         global state
+        
         state = RECORD
 
 def close_win():
@@ -92,6 +94,7 @@ def start_recognition(FILE_PATH):
     if r != None:
         result = parse_response(r, queue)   #应返回intent类型以便调用不同的处理函数
         r = []    #之后r用于接受返回的日程list,再用来显示在屏幕上
+        chat_win.thing.setText(result["ask"])
         if "intent" in result:
 
             if result["intent"] == "query_schedule_with_time":                      #查询日程，有时间
@@ -253,7 +256,7 @@ if __name__ == '__main__':
             curUser = c
     chat_win = mMainWindow()
     chat_win.btn_record.clicked.connect(chat_win.start_record)
-    
+
 
     workThread = WorkThread()
     workThread.start()

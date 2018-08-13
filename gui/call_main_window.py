@@ -9,7 +9,8 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
         super(mMainWindow, self).__init__(parent)
         self.setupUi(self)
-        self.msg_bac.hide()
+        #self.msg_bac.hide()
+
         self.thing.setText("查看明天上午的行程")
 
 
