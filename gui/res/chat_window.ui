@@ -115,6 +115,34 @@
      <item>
       <layout class="QVBoxLayout" name="left_layout">
        <item>
+        <widget class="QPushButton" name="btn_quit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>40</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -304,7 +332,7 @@
             </widget>
            </item>
            <item>
-            <layout class="QGridLayout" name="gridLayout">
+            <layout class="QGridLayout" name="grid_schedule">
              <property name="leftMargin">
               <number>10</number>
              </property>
@@ -320,226 +348,6 @@
              <property name="spacing">
               <number>10</number>
              </property>
-             <item row="0" column="1">
-              <widget class="QLabel" name="answer_time_value">
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>120</red>
-                     <green>120</green>
-                     <blue>120</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Ubuntu</family>
-                 <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>2018-08-20 09:30:00</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="time_item">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>120</red>
-                     <green>120</green>
-                     <blue>120</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Microsoft YaHei UI</family>
-                 <pointsize>10</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>时间:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="thing_item">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>120</red>
-                     <green>120</green>
-                     <blue>120</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Microsoft YaHei UI</family>
-                 <pointsize>10</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>事件:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="answer_thing_value">
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="WindowText">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>120</red>
-                     <green>120</green>
-                     <blue>120</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
-               <property name="font">
-                <font>
-                 <family>Microsoft YaHei UI</family>
-                 <pointsize>11</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>去跑步</string>
-               </property>
-              </widget>
-             </item>
             </layout>
            </item>
           </layout>
@@ -765,12 +573,58 @@
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
-         <widget class="QWidget" name="layoutWidget">
+         <widget class="QLabel" name="label_background">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>300</width>
+            <height>200</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>300</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="source.qrc">:/background/box_background.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="indent">
+           <number>-1</number>
+          </property>
+         </widget>
+         <widget class="QWidget" name="layoutWidget_2">
           <property name="geometry">
            <rect>
             <x>30</x>
             <y>30</y>
-            <width>241</width>
+            <width>242</width>
             <height>151</height>
            </rect>
           </property>
@@ -1004,13 +858,13 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>120</width>
+                 <width>110</width>
                  <height>35</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>120</width>
+                 <width>110</width>
                  <height>30</height>
                 </size>
                </property>
@@ -1036,54 +890,6 @@
            </item>
           </layout>
          </widget>
-         <widget class="QLabel" name="label_background">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>300</width>
-            <height>200</height>
-           </rect>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>300</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>300</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="source.qrc">:/background/box_background.png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="indent">
-           <number>-1</number>
-          </property>
-         </widget>
-         <zorder>label_background</zorder>
-         <zorder>layoutWidget</zorder>
         </widget>
        </item>
        <item>
@@ -1113,17 +919,33 @@
  </resources>
  <connections>
   <connection>
+   <sender>btn_quit</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>639</x>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>btn_delete</sender>
    <signal>clicked()</signal>
    <receiver>ask_box</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1081</x>
+     <x>1026</x>
      <y>319</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1135</x>
+     <x>1080</x>
      <y>260</y>
     </hint>
    </hints>
@@ -1135,11 +957,11 @@
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1081</x>
+     <x>1026</x>
      <y>319</y>
     </hint>
     <hint type="destinationlabel">
-     <x>201</x>
+     <x>214</x>
      <y>617</y>
     </hint>
    </hints>

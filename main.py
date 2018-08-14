@@ -82,11 +82,50 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
         time = QDateTime.currentDateTime()
         time_text = time.toString("MM月dd hh:mm")
         self.ask_time.setText(time_text)
+
+        self.clear_grid()#清空grid
+
     
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
             self.close()
+
+    def add_schedule(self, schedule, row):
+        self.add_grid("时间:", row, 0)
+        self.add_grid(schedule.get_time(), row, 1)
+        self.add_grid("事件：", row+1, 0)
+        self.add_grid(schedule.get_thing(), row+1, 1)
+
+    def add_grid(self, text, x, y):
+        item = QtWidgets.QLabel()
+        item.setText(text)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        item.setPalette(palette)
+        font = QtGui.QFont()
+        font.setFamily("Ubuntu")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
+        item.setObjectName("item_" + str(x) + "_" + str(y))
+        self.grid_schedule.addWidget(item, x, y,)
+    
+    def clear_grid(self):
+        n = self.grid_schedule.count()
+        for i in range(n)[::-1]:
+            item = self.grid_schedule.takeAt(i)
+            w = item.widget()
+            w.deleteLater()
 
 def close_win():
     #print("do u?")
@@ -95,11 +134,10 @@ def close_win():
     qApp.quit()
 
 def update_UI_slot(p):
-    print("yes")
+    #print("yes")
     if "purpose" in p:
         if p["purpose"] == "START_RECORD":
             chat_win.ask_box.setHidden(False)
-            chat_win.label_background.setHidden(True)
         elif p["purpose"] == "RECORD_DONE":
             pass
         elif p["purpose"] == "ASK_TEXT":
@@ -108,7 +146,13 @@ def update_UI_slot(p):
             chat_win.answer_box.setHidden(False)
             chat_win.answer_text.setText(p["data"])
         elif p["purpose"] == "ANSWER_DATA":
-            pass
+            if "data" in p:
+                schedulelist = p["data"]
+                row = 0
+                for s in schedulelist:
+                    chat_win.add_schedule(s, row)
+                    row = row + 2
+            p.pop("data")
         elif p["purpose"] == "PLAY_DONE":
             pass
 
@@ -239,7 +283,7 @@ def FSM(signal):
                     if "schedulelist" in result:
                         print("################")
                         if len(result["schedulelist"]) != 0:
-                            signal.trigger_update_UI.emit({"purpose":"ANSWER_DATA", "data":result["answer"]})
+                            signal.trigger_update_UI.emit({"purpose":"ANSWER_DATA", "data":result["schedulelist"]})
                             print("时间：" + result["schedulelist"][0].get_time())
                             print("日程：" + result["schedulelist"][0].get_thing())
                             result.pop("schedulelist")
@@ -310,6 +354,8 @@ if __name__ == '__main__':
             print("不好意思，您还没有登陆呢")
             #这里应该要退到登录界面，为了调试方便让小李成为curUser
             curUser = c
+    else:
+        curUser = c
 
 
     chat_win = mMainWindow()
