@@ -221,5 +221,21 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_login</sender>
+   <signal>clicked()</signal>
+   <receiver>btn_register</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1028</x>
+     <y>326</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1028</x>
+     <y>407</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>

@@ -359,6 +359,7 @@ if __name__ == '__main__':
 
 
     chat_win = mMainWindow()
+    
     chat_win.btn_record.clicked.connect(chat_win.start_record)
     chat_win.ask_box.setHidden(True)
     chat_win.answer_box.setHidden(True)
@@ -367,6 +368,7 @@ if __name__ == '__main__':
     workThread.start()
     workThread.trigger_close_win.connect(close_win)
     workThread.trigger_update_UI.connect(update_UI_slot)
+    
     chat_win.show()
     
     sys.exit(app.exec_())

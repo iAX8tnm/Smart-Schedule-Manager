@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from clock_window import *
+from register_window import *
 
 class mMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
@@ -26,12 +27,28 @@ class mMainWindow(QMainWindow, Ui_MainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
+            #self.close()
+            register_win.show()
+
+
+            
+
+
+class mRegisterWindow(QMainWindow, Ui_register_window):
+    def __init__(self, parent = None):
+        super(mRegisterWindow, self).__init__(parent)
+        self.setupUi(self)
+
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Escape:
             self.close()
 
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
-    chat_win = mMainWindow()
-    chat_win.show()
+    clock_win = mMainWindow()
+    register_win = mRegisterWindow()
+    clock_win.show()
     sys.exit(app.exec_())
     pass
