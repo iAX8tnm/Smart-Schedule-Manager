@@ -102,6 +102,13 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Microsoft YaHei UI Light</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>登陆</string>
        </property>
@@ -115,6 +122,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="btn_register">
+       <property name="font">
+        <font>
+         <family>Microsoft YaHei UI Light</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>注册</string>
        </property>
@@ -122,6 +136,13 @@
      </item>
      <item>
       <widget class="QPushButton" name="btn_exit">
+       <property name="font">
+        <font>
+         <family>Microsoft YaHei UI Light</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>退出</string>
        </property>
