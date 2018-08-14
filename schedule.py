@@ -13,6 +13,8 @@ class Schedule:
                     self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTPM')) + 46800
                 elif time[10:] == "TNI":
                     self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTNI')) + 72000
+                elif time[10:] == "TEV":
+                    self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTEV')) + 63000
                 elif time[10:] == "TTT":
                     self.timestamp = T.mktime(T.strptime(time,'%Y-%m-%dTTT')) + 21600
             elif len(time) == 19:                       #格式为2018-01-01T09:00:00
